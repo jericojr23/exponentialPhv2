@@ -1,0 +1,539 @@
+.maincon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(
+      circle, 
+      rgb(189, 255, 251), 
+      rgb(00, 204, 255),
+      rgb(0, 122, 255) 
+    ), conic-gradient(
+      from 180deg at 50% 50%, 
+      rgb(189, 255, 251), 
+      rgb(0, 122, 255) 
+    );
+    width: 100%;
+    min-width: 62.5rem;
+    height: 100vh;
+  }
+  
+  .oblong {
+    display: flex; 
+    border-radius: 1.875rem;
+    border: 0.063rem solid #00A9FF;
+    background: floralwhite;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.70);
+  }
+  
+  .prof {
+    display: flex;
+    border-top-left-radius: 1.875rem;
+    border-bottom-left-radius: 1.875rem;
+    border-right: 0.063rem solid #00A9FF;
+    flex: 2.5;
+  }
+  
+  .imgprof {
+    border-top-left-radius: 1.875rem;
+    justify-content: center;
+    align-items: center;
+    flex: 3;
+  }
+  .imgg{
+    border-radius: 10rem;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+  .upl {
+    justify-content: space-around;
+    align-items: center;
+    display: flex;
+  }
+  .photo {
+    font-family: "Archivo";
+    font-style: normal;
+    font-size: 0.8rem;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+  }
+  .accs {
+    border-bottom-left-radius: 1.875rem;
+    justify-content: center;
+    align-items: flex-start;
+    display: flex;
+    flex: 2;
+  }
+  .fbincon,.gincon,.lincon {
+    flex: 4;
+  }
+  .fbin, .gin,.lin{
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border: 0.063rem solid #0CF;
+    background-color: rgb(255, 255, 255);
+    outline: 0 !important;
+    padding-left: 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  .fblogo,.glogo,.linklogo{
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+  }
+  .editprof{
+    border-left: 0.063rem solid #00A9FF;
+    border-right: 0.063rem solid #00A9FF;
+    flex: 5;
+  }
+  .sup {
+    font-family: "Archivo";
+    font-style: normal;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .name {
+    margin-bottom: 0%;
+    display: flex;
+    justify-content: center;
+  }
+  .first{
+    display: flex;
+    flex-direction: column;
+  }
+  .last{
+    display: flex;
+    flex-direction: column;
+  }
+  .fn{
+    font-family: "Archivo";
+    font-style: normal;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  .fnin{
+    border-radius: 0.5rem;
+    border: 0.063rem solid #0CF;
+    background-color: rgb(255, 255, 255);
+    outline: 0 !important;
+    box-sizing: border-box;
+    padding-left: 1rem;
+  }
+  .ln{
+    font-family: "Archivo";
+    font-style: normal;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  .lnin{
+    border-radius: 0.5rem;
+    border: 0.063rem solid #0CF;
+    background-color: rgb(255, 255, 255);
+    outline: 0 !important;
+    box-sizing: border-box;
+    padding-left: 1rem;
+  }
+  .datemob {
+    margin-bottom: 0%;
+    display: flex;
+    justify-content: center;
+  }
+  .date{
+    display: flex;
+    flex-direction: column;
+  }
+  .mob{
+    display: flex;
+    flex-direction: column;
+  }
+  .mn{
+    font-family: "Archivo";
+    font-style: normal;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  .mnin{
+    border-radius: 0.5rem;
+    border: 0.063rem solid #0CF;
+    background-color: rgb(255, 255, 255);
+    outline: 0 !important;
+    box-sizing: border-box;
+    padding-left: 1rem;
+  }
+  .bd{
+    font-family: "Archivo";
+    font-style: normal;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  .bdin{
+    border-radius: 0.5rem;
+    border: 0.063rem solid #0CF;
+    background-color: rgb(255, 255, 255);
+    outline: 0 !important;
+    box-sizing: border-box;
+    font-weight: bold;
+    color: solid gray;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .addr1{
+    font-family: "Archivo";
+    font-style: normal;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin: 2%;
+    margin-top: 0%;
+  }
+  .addr1in{
+    border-radius: 0.5rem;
+    border: 0.063rem solid #0CF;
+    background-color: rgb(255, 255, 255);
+    outline: 0 !important;
+    box-sizing: border-box;
+    padding-left: 1rem;
+  }
+  .addr1inn{
+    border-radius: 0.5rem;
+    border: 0.063rem solid #0CF;
+    background-color: rgb(255, 255, 255);
+    outline: 0 !important;
+    box-sizing: border-box;
+    padding-left: 1rem;
+  }
+  .compslogan {
+    font-family: "Archivo";
+    font-style: normal;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin: 2%;
+    margin-top: 0%;
+  }
+  .cslogan {
+    border-radius: 0.5rem;
+    border: 0.063rem solid #0CF;
+    background-color: rgb(255, 255, 255);
+    outline: 0 !important;
+    box-sizing: border-box;
+    padding-left: 1rem;
+    font-family: Archivo;
+    font-weight: normal;
+  }
+  .imgg{
+    border: 0.063rem solid #0CF;
+  }
+  .exp {
+    border-top-right-radius: 1.875rem;
+    border-bottom-right-radius: 1.875rem;
+    border-left: 0.063rem solid #00A9FF;
+    display: flex;
+    flex-direction: column;
+    flex: 2.5;
+  }
+  .expp {
+    font-family: "Archivo";
+    font-style: normal;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  .expp1,.expp2,.expp3{
+    font-family: "Archivo";
+    font-style: normal;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  .exp1in,.exp2in,.exp3in{
+    border-radius: 0.5rem;
+    border: 0.063rem solid #0CF;
+    background-color: rgb(255, 255, 255);
+    outline: 0 !important;
+    box-sizing: border-box;
+    padding-left: 1rem;
+  }
+  .subton{
+    font-family: "Archivo";
+    font-style: normal;
+    font-size: 0.8rem;
+    font-weight: bold; 
+    align-self: flex-end;
+    padding-right: 3%;
+  }
+  .submit{
+    background-color: #85ebf2;
+    border: none;
+    padding: 0.5;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    color: #00A7FF;
+    box-shadow: 0 0.2rem #5D5D5D;
+    text-decoration: none; 
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+  }
+  @media (max-width: 1980px) {
+    .maincon {
+      min-width: auto; 
+    }
+    
+    .oblong {
+      max-width: 90%; 
+      height: 96%; 
+      width: 100%;
+    }
+  
+    .prof {
+      flex: 2.5;
+      height: 100%;
+      max-width: 25%;
+      width: 100%;
+      flex-direction: column;
+    }
+  
+    .imgprof{
+      flex: 3;
+    }
+    .accs {
+      flex: 2;
+    }
+    .fbincon, .gincon,.lincon{
+      margin-right:5%;
+    }
+    .fbin,.gin,.lin{
+      max-width: 100%;
+      width: 100%;
+      height: 70%;
+      font-size: 0.75rem;
+      flex: 4;
+    }
+    .fbin:focus, .gin:focus, .lin:focus {
+      box-shadow: 2px 2px 2px 0px rgba(16, 155, 241, 0.75);
+    }
+    .fblogo, .glogo,.linklogo{
+      max-width: 15%;
+      width: 100%;
+      height: 20%;
+      margin-left: 5%;
+      flex: 1;
+      display:flex;
+    }
+    .imgprof{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      max-width: 100%;
+      width: 100%;
+      height: 100%;
+    }
+    .imgg{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 60%; 
+      height: 50%;
+      overflow: hidden;
+    }
+    .upl{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50%; 
+      height: 10%;
+      margin: 2%;
+    }
+    .accs {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      max-width: 100%;
+      width: 100%;
+      height: 100%;
+    }
+    .fb,.google,.linked{
+      width: 100%;
+      height: 20%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .photo{
+      margin-top: 2%;
+      max-width: 100%;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+    .editprof {
+      flex: 5;
+      height: 100%;
+      max-width: 50%;
+      width: 100%;
+    }
+    .sup {
+      margin-left: 2%;
+    }
+    .fn,.ln,.mn,.bd{
+      text-align: left;
+    }
+    .first{
+      width: 46%;
+    }
+    .last{
+      width: 46%;
+      margin-left: 2%;
+    }
+    .fnin{
+      width: 100%;
+      height: 5vh;
+      font-size: 0.75rem;
+    }
+    .fnin:focus {
+      box-shadow: 2px 2px 2px 0px rgba(16, 155, 241, 0.75);
+    }
+    .lnin{
+      width: 100%;
+      height: 5vh;
+      font-size: 0.75rem;
+    }
+    .lnin:focus {
+      box-shadow: 2px 2px 2px 0px rgba(16, 155, 241, 0.75);
+    }
+    .date{
+      width: 46%;
+    }
+    .mob{
+      width: 46%;
+      margin-left: 2%;
+    }
+    .mnin{
+      width: 100%;
+      height: 5vh;
+      font-size: 0.75rem;
+    }
+    .mnin:focus {
+      box-shadow: 2px 2px 2px 0px rgba(16, 155, 241, 0.75);
+    }
+    .bdin{
+      width: 100%;
+      height: 5vh;
+      font-size: 0.75rem;
+    }
+    .bdin:focus {
+      box-shadow: 2px 2px 2px 0px rgba(16, 155, 241, 0.75);
+    }
+    .addr1{
+      margin-left: 3%;
+      margin-right: 3%;
+      margin-top: 2%;  
+      margin-bottom: 2%; 
+    }
+    .addr1in, .addr1inn{
+      max-width: 94%;
+      width: 100%;
+      height: 5vh;
+      font-size: 0.75rem;
+      margin-left: 3%;
+      margin-right: 3%;
+      margin-top: 0%;  
+      margin-bottom: 2%; 
+    }
+    .addr1in:focus,.addr1inn:focus {
+      box-shadow: 2px 2px 2px 0px rgba(16, 155, 241, 0.75);
+    }
+    .cslog {
+      width: 100%;
+    }
+  
+    .compslogan {
+      margin-left: 3%; 
+    }
+  
+    .cslogan {
+      padding-top: 0.5rem;
+      max-width: 94%;
+      height: 15%;
+      width: 100%;
+      margin-left: 3%;
+      margin-right: 3%;
+      padding-left: 0.5rem;
+      resize: none;
+    }
+  
+    .cslogan:focus {
+      box-shadow: 2px 2px 2px 0px rgba(16, 155, 241, 0.75);
+    }
+    .exp {
+      flex: 2.5;
+      height: 100%;
+      max-width: 25%;
+      width: 100%;
+    }
+  
+    .expp{
+      margin-left: 2%;
+    }
+    .expp1,.expp2,.expp3{
+      text-align: left;
+      margin-left: 3%;
+    }
+    .exp1,.exp2,.exp3{
+      width: 100%;
+      height: 10%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .exp1in, .exp2in, .exp3in{
+      width: 94%;
+      height: 5vh;
+      font-size: 0.75rem;
+      margin-left: 3%;
+    }
+    .exp1n:focus,.exp2n:focus,.exp2n:focus {
+      box-shadow: 2px 2px 2px 0px rgba(16, 155, 241, 0.75);
+    }
+    .subton {
+      margin-top: auto;
+      margin-left: 2%;
+    }
+  
+    .submit {
+      height: 5vh;
+      width: 6rem;
+      cursor: pointer;
+      margin-right: 10%;
+      margin-bottom: 10%;
+     }
+     
+     .submit:active {
+      color: rgb(53, 154, 170);
+      box-shadow: 0 0.2rem #5D5D5D;
+      transform: translateY(0.2rem);
+     }
+     
+     .submit:hover:not(:disabled) {
+      background: #00A7FF;
+      color: white;
+      text-shadow: 0 0.1rem #bcb4b4;
+     }
+     
+     .submit:disabled {
+      cursor: auto;
+      color: #2accf5;
+     }
+  
+    @font-face{
+      font-family: 'Archivo';
+      src: url('./fonts/Archivo-SemiBold.woff2') format('woff2'),
+           url('./fonts/Archivo-SemiBold.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+      }
+  }
