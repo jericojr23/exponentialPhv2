@@ -6,8 +6,8 @@ import Cookies from 'js-cookie';
 
 const Navbar = () => {
  const navLinks = [
-    { name: 'About', link: '/services' },
-    { name: 'Community', link: '/contact' },
+    { name: 'About', link: '/about' },
+    { name: 'Community', link: '/community' },
  ];
 
  const [showSearchBar, setShowSearchBar] = useState(false);
