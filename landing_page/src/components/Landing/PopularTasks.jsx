@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 
-function PopularServices() {
+function PopularTasks() {
   const router = useRouter();
   const popularServicesData = [
     { name: "Data Analysis", 
@@ -42,7 +42,7 @@ function PopularServices() {
   return (
     <div className="mx-20 my-16">
       <h2 className="text-4xl mb-5 text-[#00A9FF] font-bold">
-        Popular Tasks
+        Top Tasks
       </h2>
       <ul className="flex flex-wrap gap-16">
         {popularServicesData.map(({ name, label, image }) => {
@@ -67,4 +67,4 @@ function PopularServices() {
   );
 }
 
-export default PopularServices;
+export default PopularTasks;

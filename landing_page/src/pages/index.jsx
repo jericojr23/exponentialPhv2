@@ -3,11 +3,11 @@ import Everything from "../components/Landing/Everything";
 import ExponentialPhBusiness from "../components/Landing/ExponentialPhBusiness";
 import HeroBanner from "../components/Landing/HeroBanner";
 import JoinExponentialPh from "../components/Landing/JoinExponentialPh";
-import PopularServices from "../components/Landing/PopularServices";
 import Services from "../components/Landing/Services";
 import React from "react";
 import Navbar from "../components/Landing/Navbar";
 import Footer from "../components/Landing/Footer";
+import PopularTasks from "../components/Landing/PopularTasks";
 
 function Index() {
   return (
@@ -15,7 +15,7 @@ function Index() {
       <Navbar/>
       <HeroBanner />
       <Companies />
-      <PopularServices />
+      <PopularTasks />
       <Everything />
       <Services />
       <ExponentialPhBusiness />

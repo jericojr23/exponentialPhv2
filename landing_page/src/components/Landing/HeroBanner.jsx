@@ -45,9 +45,9 @@ function HomeBanner() {
         />
         
       </div>
-      <div className="z-10 relative w-[650px] flex justify-center flex-col h-full gap-5 ml-20">
+      <div className="z-10 relative w-[700px] flex justify-center flex-col h-full gap-5 ml-20">
         <h1 className="text-white text-5xl leading-snug">
-        <i>The Best Technological Solutions <br /> for Your Company</i>
+        <i>The Best Technological Solutions </i>
         </h1>
         <div className="flex align-middle">
           <div className="relative">
