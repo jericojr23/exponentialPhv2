@@ -96,6 +96,16 @@
       "type": "uid",
       "targetField": "username",
       "required": true
+    },
+    "experience1": {
+      "type": "string"
+    },
+    "Image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

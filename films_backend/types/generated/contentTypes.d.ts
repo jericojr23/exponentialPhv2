@@ -779,6 +779,8 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     LinkedIn: Attribute.String;
     slug: Attribute.UID<'plugin::users-permissions.user', 'username'> &
       Attribute.Required;
+    experience1: Attribute.String;
+    Image: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

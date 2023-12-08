@@ -29,7 +29,7 @@ export default function Profile() {
           throw new Error('User ID not found in cookies');
         }
   
-        const response = await fetch(`${apiUrl}/profiles/${userId}`, {
+        const response = await fetch(`${apiUrl}/users/${userId}`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${jwt}`,
@@ -46,22 +46,25 @@ export default function Profile() {
   
         const userDataResponse = await response.json();
         console.log('User Data:', userDataResponse);
-  
-        if (userDataResponse && userDataResponse.data && userDataResponse.data.attributes) {
-          const userAttributes = userDataResponse.data.attributes;
-  
+        
+        if (userDataResponse) {
           setUserData({
-            firstName: userAttributes.firstName,
-            lastName: userAttributes.lastName,
-            mobileNumber: userAttributes.mobileNumber,
-            birthDate: userAttributes.birthDate,
-            permanentAddress: userAttributes.permanentAddress,
-            aboutYou: userAttributes.aboutYou,
-            experience1: userAttributes.experience1,
+            firstName: userDataResponse.firstName,
+            lastName: userDataResponse.lastName,
+            mobileNumber: userDataResponse.mobileNumber,
+            birthDate: userDataResponse.birthDate,
+            permanentAddress: userDataResponse.permanentAddress,
+            aboutYou: userDataResponse.aboutYou,
+            experience1: userDataResponse.experience1,
+            Google: userDataResponse.Google,
+            Facebook: userDataResponse.Facebook,
+            LinkedIn: userDataResponse.LinkedIn,
+            Image: userDataResponse.Image
           });
         } else {
-          setUserData(null); // User not found or missing attributes, set userData to null
+          setUserData({}); // User not found or missing attributes, set userData to null
         }
+        
   
         setLoading(false);
       } catch (error) {
@@ -103,12 +106,12 @@ export default function Profile() {
           <div className={styles.prof}>
             <div className={styles.imgprof}>
               <div className={styles.imgg}>
-                <Image src={userData.Image} 
+                <Image src={userData?.Image} 
                 alt="DP" 
                 layout="fill"
                 objectFit="cover" />
               </div>
-              <p className={styles.fullname}>Charles Feria</p>
+              <p className={styles.fullname}>{userData.firstName} {userData.lastName}</p>
               <div className={styles.upl}>
                 <Link href="/editprof">Edit Profile</Link>
               </div>
