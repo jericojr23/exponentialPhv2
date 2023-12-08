@@ -47,9 +47,40 @@ export default function Login() {
 
       // Set the jwt key in a cookie named 'jwt'
       Cookies.set('jwt', data.jwt);
+      const userResponse = await fetch(`${apiUrl}/users/me`, {
+        headers: {
+          Authorization: `Bearer ${data.jwt}`,
+        },
+      });
 
-      // Redirect to the landing page
-      router.push('/');
+      if (!userResponse.ok) {
+        console.error('Failed to fetch user data');
+        throw new Error('Failed to fetch user data');
+      }
+
+      const userData = await userResponse.json();
+
+      console.log('User Data:', userData);
+
+      // Call the login function from the context to handle authentication
+      // Pass the jwt token and user data to the login function
+      login(data.jwt, userData);
+
+      // Set the jwt key in a cookie named 'jwt'
+      Cookies.set('jwt', data.jwt);
+
+      // Extract the slug from the user data and set it in a cookie named 'slug'
+      const { slug } = userData; // Change this line based on your actual user data structure
+      if (slug) {
+        Cookies.set('slug', slug);
+
+        // Redirect to the existing profile page with the obtained slug
+        router.push('/');
+      } else {
+        // Handle the case where there's no slug in the user data
+        console.error('No slug found in user data');
+        // You might want to redirect to a default profile page or handle this differently
+      }
     } catch (error) {
       console.error('Login failed', error);
       // Show error message box

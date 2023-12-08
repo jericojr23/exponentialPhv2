@@ -1,24 +1,21 @@
-import { useState } from 'react';
-import axios from 'axios';
-import Link from 'next/link';
-import styles from './styles.module.css';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import styles from './editprof.styles.module.css';
 import img from '../../public/Poging DP.jpg';
 import fb from '../../public/fb.png';
 import google from '../../public/google.png';
 import linkedin from '../../public/linkedin.png';
 import Cookies from 'js-cookie';
+
 const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL;
 
 export default function EditProf() {
-  // Form data
   const [formData, setFormData] = useState({
     FirstName: '',
     LastName: '',
     MobileNumber: '',
     BirthDate: '',
-    Address1: '',
-    Address2: '',
+    permanentAddress: '',
     AboutYou: '',
     experience1: '',
     experience2: '',
@@ -28,7 +25,55 @@ export default function EditProf() {
     LinkedIn: '',
   });
 
-  // Change form data
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const jwtToken = Cookies.get('jwt');
+  const userSlug = Cookies.get('userSlug'); // Replace 'userSlug' with your actual cookie name
+
+  useEffect(() => {
+    // Fetch user data to populate the form
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/users/${userSlug}`, {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to fetch user data');
+        }
+
+        const userData = await response.json();
+        setFormData({
+          FirstName: userData.firstName,
+          LastName: userData.lastName,
+          MobileNumber: userData.mobileNumber,
+          BirthDate: userData.birthDate,
+          permanentAddress: userData.permanentAddress,
+          AboutYou: userData.aboutYou,
+          experience1: userData.experience1,
+          experience2: userData.experience2,
+          experience3: userData.experience3,
+          FaceBook: userData.FaceBook,
+          Google: userData.Google,
+          LinkedIn: userData.LinkedIn,
+        });
+      } catch (error) {
+        setError(error.message || 'Failed to fetch user data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (jwtToken && userSlug) {
+      setLoading(true);
+      fetchUserData();
+    }
+  }, [jwtToken, userSlug]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -37,33 +82,41 @@ export default function EditProf() {
     }));
   };
 
-  const getTokenFromCookies = () => {
-    return Cookies.get('jwt');
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Token from cookies
-      const jwtToken = getTokenFromCookies();
+      setLoading(true);
 
-      // Post ba dapat dito or Put? 
-      const response = await axios.post(`${apiUrl}/auth/profiles/1`, formData, {
+      const response = await fetch(`${apiUrl}/users/${userSlug}`, {
+        method: 'PUT',
         headers: {
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${jwtToken}`,
         },
+        body: JSON.stringify(formData),
       });
 
-      // Successful handle submit
-      console.log('Data submitted successfully', response.data);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to update user data');
+      }
+
       alert('Data submitted successfully');
     } catch (error) {
-      // Failed handle submit
-      console.error('Error submitting data', error);
-      alert('Error submitting data. Please try again.');
+      setError(error.message || 'Failed to update user data');
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <main className={styles.maincon}>
@@ -166,13 +219,7 @@ export default function EditProf() {
           className={styles.addr1in} 
           placeholder="PERMANENT ADDRESS" 
           maxLength={80} 
-          value={formData.Address1}
-            onChange={handleInputChange}/>
-          <input 
-          className={styles.addr1inn} 
-          placeholder="PERMANENT ADDRESS" 
-          maxLength={80} 
-          value={formData.Address2}
+          value={formData.permanentAddress}
             onChange={handleInputChange}/>
           <div className={styles.cslog}>
             <h5 className={styles.compslogan}>About You</h5>

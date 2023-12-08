@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './profile.styles.module.css';
-import { username, password, jwt } from '/src/pages/login';
+import Cookies from 'js-cookie';
+
 const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL;
 
 export default function Profile() {
@@ -8,14 +9,23 @@ export default function Profile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Retrieve JWT token from cookies
+  const jwt = Cookies.get('jwt');
+  
+  // Get slug from cookies
+  const slug = Cookies.get('slug');
+
   useEffect(() => {
-    const handleProfile = async () => {
+    const fetchUserData = async () => {
       try {
-        const response = await fetch(`${apiUrl}/auth/profiles/1`, {
-          method: 'GET',
+        // Check if slug is available before making the API request
+        if (!slug) {
+          throw new Error('Slug is missing');
+        }
+
+        const response = await fetch(`${apiUrl}/users?slug=${slug}`, {
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${jwt}`,
+            Authorization: `Bearer ${jwt}`,
           },
         });
 
@@ -24,22 +34,29 @@ export default function Profile() {
         if (!response.ok) {
           const profileErrorData = await response.json();
           console.error('Profile fetch failed:', profileErrorData.message || 'Unknown error');
-          throw new Error('Profile Error');
+          throw new Error(`Profile Error: ${profileErrorData.message || 'Unknown error'}`);
         }
 
         const data = await response.json();
 
-        setUserData({
-          firstName: data.attributes.firstName,
-          lastName: data.attributes.lastName,
-          mobileNumber: data.attributes.mobileNumber,
-          birthDate: data.attributes.birthDate,
-          permanentAddress: data.attributes.permanentAddress,
-          aboutYou: data.attributes.aboutYou,
-          experience1: data.attributes.experience1,
-        });
+        if (data.length > 0) {
+          // Assuming there's only one user with the given slug
+          const user = data[0];
 
-        setLoading(false);
+          setUserData({
+            firstName: user.firstName,
+            lastName: user.lastName,
+            mobileNumber: user.mobileNumber,
+            birthDate: user.birthDate,
+            permanentAddress: user.permanentAddress,
+            aboutYou: user.aboutYou,
+            experience1: user.experience1,
+          });
+
+          setLoading(false);
+        } else {
+          throw new Error('User not found');
+        }
       } catch (error) {
         console.error('Error fetching user profile:', error.message || 'Unknown error');
         setError(error);
@@ -47,8 +64,14 @@ export default function Profile() {
       }
     };
 
-    handleProfile();
-  }, [jwt]);
+    // Check if JWT token is available before making the API request
+    if (jwt) {
+      fetchUserData();
+    } else {
+      // Handle the case where JWT token is not available
+      setLoading(false);
+    }
+  }, [jwt, slug]);
 
   if (loading) {
     return <div>Loading...</div>;
