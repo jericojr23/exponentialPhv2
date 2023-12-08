@@ -67,6 +67,7 @@ const Navbar = () => {
             <li>
               <button onClick={() => {
                 Cookies.remove('jwt');
+                Cookies.remove('id');
                 window.location.href = '/';
               }}>Logout</button>
             </li>

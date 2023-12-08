@@ -70,15 +70,15 @@ export default function Login() {
       Cookies.set('jwt', data.jwt);
 
       // Extract the slug from the user data and set it in a cookie named 'slug'
-      const { slug } = userData; // Change this line based on your actual user data structure
-      if (slug) {
-        Cookies.set('slug', slug);
+      const { id } = userData; // Change this line based on your actual user data structure
+      if (id) {
+        Cookies.set('id', id);
 
         // Redirect to the existing profile page with the obtained slug
         router.push('/');
       } else {
         // Handle the case where there's no slug in the user data
-        console.error('No slug found in user data');
+        console.error('No id found in user data');
         // You might want to redirect to a default profile page or handle this differently
       }
     } catch (error) {

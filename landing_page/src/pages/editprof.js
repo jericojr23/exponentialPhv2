@@ -1,177 +1,136 @@
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
-import styles from './editprof.styles.module.css';
-import img from '../../public/Poging DP.jpg';
-import fb from '../../public/fb.png';
-import google from '../../public/google.png';
-import linkedin from '../../public/linkedin.png';
 import Cookies from 'js-cookie';
+import styles from './editprof.styles.module.css';
+import img from "../../public/Poging DP.jpg";
 
 const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL;
 
-export default function EditProf() {
-  const [formData, setFormData] = useState({
-    FirstName: '',
-    LastName: '',
-    MobileNumber: '',
-    BirthDate: '',
+const EditProf = () => {
+  const [userData, setUserData] = useState({
+    firstName: '',
+    lastName: '',
+    mobileNumber: '',
+    birthDate: '',
     permanentAddress: '',
-    AboutYou: '',
+    aboutYou: '',
     experience1: '',
-    experience2: '',
-    experience3: '',
-    FaceBook: '',
-    Google: '',
-    LinkedIn: '',
   });
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const jwtToken = Cookies.get('jwt');
-  const userSlug = Cookies.get('userSlug'); // Replace 'userSlug' with your actual cookie name
+  const jwt = Cookies.get('jwt');
+  const userId = Cookies.get('userId');
 
   useEffect(() => {
-    // Fetch user data to populate the form
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`${apiUrl}/users/${userSlug}`, {
+        if (!userId) {
+          console.error('User ID not found in cookies');
+          // Handle error as needed
+          return;
+        }
+
+        const response = await fetch(`${apiUrl}/profiles/${userId}`, {
+          method: 'GET',
           headers: {
-            Authorization: `Bearer ${jwtToken}`,
+            Authorization: `Bearer ${jwt}`,
           },
         });
 
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || 'Failed to fetch user data');
+          console.error('Failed to fetch user data for editing');
+          // Handle error as needed
+          return;
         }
 
-        const userData = await response.json();
-        setFormData({
-          FirstName: userData.firstName,
-          LastName: userData.lastName,
-          MobileNumber: userData.mobileNumber,
-          BirthDate: userData.birthDate,
-          permanentAddress: userData.permanentAddress,
-          AboutYou: userData.aboutYou,
-          experience1: userData.experience1,
-          experience2: userData.experience2,
-          experience3: userData.experience3,
-          FaceBook: userData.FaceBook,
-          Google: userData.Google,
-          LinkedIn: userData.LinkedIn,
+        const userDataResponse = await response.json();
+        const userAttributes = userDataResponse.data.attributes;
+
+        setUserData({
+          firstName: userAttributes.firstName,
+          lastName: userAttributes.lastName,
+          mobileNumber: userAttributes.mobileNumber,
+          birthDate: userAttributes.birthDate,
+          permanentAddress: userAttributes.permanentAddress,
+          aboutYou: userAttributes.aboutYou,
+          experience1: userAttributes.experience1,
         });
       } catch (error) {
-        setError(error.message || 'Failed to fetch user data');
-      } finally {
-        setLoading(false);
+        console.error('Error fetching user data for editing:', error.message || 'Unknown error');
       }
     };
 
-    if (jwtToken && userSlug) {
-      setLoading(true);
+    if (jwt && userId) {
       fetchUserData();
     }
-  }, [jwtToken, userSlug]);
+  }, [jwt, userId]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
+    setUserData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      setLoading(true);
+      if (!userId) {
+        console.error('User ID not found in cookies');
+        // Handle error as needed
+        return;
+      }
 
-      const response = await fetch(`${apiUrl}/users/${userSlug}`, {
+      const response = await fetch(`${apiUrl}/profiles/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${jwtToken}`,
+          Authorization: `Bearer ${jwt}`,
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          data: {
+            attributes: userData,
+          },
+        }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to update user data');
+        console.error('Failed to update user profile:', errorData.message || 'Unknown error');
+        // Handle error as needed
+        return;
       }
 
-      alert('Data submitted successfully');
+      console.log('User profile updated successfully');
+      // Redirect to the profile page after a successful update
+      window.location.href = '/profile';
     } catch (error) {
-      setError(error.message || 'Failed to update user data');
-    } finally {
-      setLoading(false);
+      console.error('Error updating user profile:', error.message || 'Unknown error');
+      // Handle error as needed
     }
   };
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
 
   return (
     <main className={styles.maincon}>
       <div className={styles.oblong}>
+      {/* Home button */}
+      <div className={styles.homeButton}>
+        <Link legacyBehavior href="/">
+          <a>Home</a>
+        </Link>
+      </div>
         <div className={styles.prof}>
           <div className={styles.imgprof}>
             <div className={styles.imgg}>
-              <Image src={img} alt="DP" layout="fill" objectFit="cover" />
-            </div>
+              <Image src={img} 
+              alt="DP" 
+              layout="fill"
+              objectFit="cover" />
+            </div >
             <div className={styles.upl}>
               <input className={styles.photo} type="file" accept="image/*" />
-            </div>
-          </div>
-          <div className={styles.accs}>
-            <div className={styles.fb}>
-              <div className={styles.fblogo}>
-                <Image src={fb} alt="FB" layout="responsive" objectFit="cover" />
-              </div>
-              <div className={styles.fbincon}>
-                <input
-                  className={styles.fbin}
-                  placeholder="Enter Your Facebook Account"
-                  maxLength={30}
-                  value={formData.FaceBook}
-            onChange={handleInputChange}
-                ></input>
-              </div>
-            </div>
-            <div className={styles.google}>
-              <div className={styles.glogo}>
-                <Image src={google} alt="google" layout="responsive" objectFit="cover" />
-              </div>
-              <div className={styles.gincon}>
-                <input
-                  className={styles.gin}
-                  placeholder="Enter Your Google Account"
-                  maxLength={30}
-                  value={formData.Google}
-            onChange={handleInputChange}
-                ></input>
-              </div>
-            </div>
-            <div className={styles.linked}>
-              <div className={styles.linklogo}>
-                <Image src={linkedin} alt="linkedin" layout="responsive" objectFit="cover" />
-              </div>
-              <div className={styles.lincon}>
-                <input
-                  className={styles.lin}
-                  placeholder="Enter Your LinkedIn Account"
-                  maxLength={30}
-                  value={formData.LinkedIn}
-            onChange={handleInputChange}
-                ></input>
-              </div>
             </div>
           </div>
         </div>
@@ -180,102 +139,42 @@ export default function EditProf() {
           <div className={styles.name}>
             <div className={styles.first}>
               <h2 className={styles.fn}>First Name</h2>
-              <input 
-              className={styles.fnin}
-              placeholder="FIRST NAME" 
-              maxLength={20}
-              value={formData.FirstName}
-            onChange={handleInputChange}
-             />
+              <input className={styles.fnin} placeholder="FIRST NAME" maxLength={20} />
             </div>
             <div className={styles.last}>
               <h2 className={styles.ln}>Last Name</h2>
-              <input 
-              className={styles.lnin} 
-              placeholder="LAST NAME" 
-              maxLength={20} 
-              value={formData.LastName}
-            onChange={handleInputChange}
-            />
+              <input className={styles.lnin} placeholder="LAST NAME" maxLength={20}/>
             </div>
           </div>
           <div className={styles.datemob}>
             <div className={styles.date}>
               <h3 className={styles.mn}>Mobile Number</h3>
-              <input 
-              className={styles.mnin} 
-              placeholder="MOBILE NUMBER" 
-              maxLength={15} 
-              value={formData.MobileNumber}
-            onChange={handleInputChange}/>
+              <input className={styles.mnin} placeholder="MOBILE NUMBER"  maxLength={15}/>
             </div>
             <div className={styles.mob}>
               <h3 className={styles.bd}>Birth Date</h3>
-              <input className={styles.bdin} type="date" />
+              <input className={styles.bdin} type="date"/>
             </div>
           </div>
           <h4 className={styles.addr1}>Permanent Address</h4>
-          <input 
-          className={styles.addr1in} 
-          placeholder="PERMANENT ADDRESS" 
-          maxLength={80} 
-          value={formData.permanentAddress}
-            onChange={handleInputChange}/>
+          <input className={styles.addr1in} placeholder="PERMANENT ADDRESS" maxLength={80}/>
+          <input className={styles.addr1inn} placeholder="PERMANENT ADDRESS" maxLength={80}/>
           <div className={styles.cslog}>
             <h5 className={styles.compslogan}>About You</h5>
-            <textarea
-              rows={3}
-              cols={80}
-              className={styles.cslogan}
-              placeholder="SHORT DESCRIPTION ABOUT YOU"
-              value={formData.AboutYou}
-            onChange={handleInputChange}
-            ></textarea>
+            <textarea rows={3} cols={80} className={styles.cslogan} placeholder='SHORT DESCRIPTION ABOUT YOU'></textarea> 
           </div>
         </div>
-      </div>
-      <div className={styles.exp}>
-        <h1 className={styles.expp}>EXPERIENCES</h1>
-        <div className={styles.exp1}>
-          <h2 className={styles.expp1}>Experience 1</h2>
-          <input
-            className={styles.exp1in}
-            name="experience1"
-            placeholder="EXPERIENCE 1"
-            maxLength={20}
-            value={formData.experience1}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className={styles.exp2}>
-          <h2 className={styles.expp2}>Experience 2</h2>
-          <input
-            className={styles.exp2in}
-            name="experience2"
-            placeholder="EXPERIENCE 2"
-            maxLength={20}
-            value={formData.experience2}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className={styles.exp3}>
-          <h2 className={styles.expp3}>Experience 3</h2>
-          <input
-            className={styles.exp3in}
-            name="experience3"
-            placeholder="EXPERIENCE 3"
-            maxLength={20}
-            value={formData.experience3}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className={styles.subton}>
-          {/* Use onClick to trigger the form submission */}
-          <a href="/profile" className={styles.submit} onClick={handleSubmit}>
-            SUBMIT
-          </a>
+        <div className={styles.exp}>
+          <h1 className={styles.expp}>EXPERIENCES</h1>
+          <div className={styles.exp1}>
+            <h2 className={styles.expp1}>Experience 1</h2>
+            <input className={styles.exp1in} placeholder="EXPERIENCE 1" maxLength={20}/>
+          </div>
+          <div className={styles.subton}><a href="/profile" className={styles.submit}>SUBMIT</a></div>
         </div>
       </div>
     </main>
   );
-}
+};
+
+export default EditProf;
