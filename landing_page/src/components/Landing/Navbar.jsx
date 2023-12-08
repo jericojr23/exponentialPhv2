@@ -5,15 +5,28 @@ import ExponentialPhLogo from '../ExponentialPhLogo';
 import Cookies from 'js-cookie';
 
 const Navbar = () => {
- const navLinks = [
+  const navLinks = [
     { name: 'About', link: '/about' },
     { name: 'Community', link: '/community' },
- ];
+  ];
 
- const [showSearchBar, setShowSearchBar] = useState(false);
- const [loggedIn, setLoggedIn] = useState(false);
+  const [showSearchBar, setShowSearchBar] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
 
- useEffect(() => {
+  const Search = async (input) => {
+    try {
+      const response = await fetch(`${apiUrl}/task/search?keyword=${input}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    } catch (error) {
+      console.error('Error searching:', error);
+    }
+  };
+
+  useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 100) {
         setShowSearchBar(true);
@@ -25,27 +38,27 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
 
     return () => window.removeEventListener('scroll', handleScroll);
- }, []);
+  }, []);
 
- useEffect(() => {
+  useEffect(() => {
     const jwt = Cookies.get('jwt');
     if (jwt) {
       setLoggedIn(true);
     } else {
       setLoggedIn(false);
     }
- }, []);
+  }, []);
 
- const navbarStyle = {
+  const navbarStyle = {
     backgroundColor: '#00A3FF',
     color: 'white',
- };
+  };
 
- return (
+  return (
     <nav style={navbarStyle} className="w-full py-4">
       <div className="flex justify-between items-center mx-auto px-32">
         <Link href="/">
-          <ExponentialPhLogo fillColor={"#8EF8FF"} />
+          <ExponentialPhLogo fillColor={'#8EF8FF'} />
         </Link>
         <ul className="flex gap-6">
           {navLinks.map(({ name, link }) => (
@@ -65,10 +78,14 @@ const Navbar = () => {
           )}
           {loggedIn && (
             <li>
-              <button onClick={() => {
-                Cookies.remove('jwt');
-                window.location.href = '/';
-              }}>Logout</button>
+              <button
+                onClick={() => {
+                  Cookies.remove('jwt');
+                  window.location.href = '/';
+                }}
+              >
+                Logout
+              </button>
             </li>
           )}
         </ul>
@@ -82,7 +99,7 @@ const Navbar = () => {
         </form>
       </div>
     </nav>
- );
+  );
 };
 
 export default Navbar;
