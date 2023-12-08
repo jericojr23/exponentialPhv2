@@ -3,6 +3,10 @@ import Link from 'next/link';
 import styles from './profile.styles.module.css';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
+import img from "../../public/Poging DP.jpg";
+import fb from "../../public/fb.png";
+import google from "../../public/google.png";
+import linkedin from "../../public/linkedin.png";
 
 const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL;
 
@@ -78,15 +82,66 @@ export default function Profile() {
     return <div>User not found or missing attributes</div>;
   }
 
-  return (
-    <div className={styles.container}>
-      <div className={styles.item}>First Name: {userData.firstName}</div>
-      <div className={styles.item}>Last Name: {userData.lastName}</div>
-      <div className={styles.item}>Mobile Number: {userData.mobileNumber}</div>
-      <div className={styles.item}>Birth Date: {userData.birthDate}</div>
-      <div className={styles.item}>Permanent Address: {userData.permanentAddress}</div>
-      <div className={styles.item}>About You: {userData.aboutYou}</div>
-      <div className={styles.item}>Experience: {userData.experience1}</div>
-    </div>
-  );
-}
+    return (
+      <main className={styles.maincon}>
+        <div className={styles.oblong}>
+        {/* Home button */}
+      <div className={styles.homeButton}>
+        <Link legacyBehavior href="/">
+          <a>Home</a>
+        </Link>
+      </div>
+          <div className={styles.prof}>
+            <div className={styles.imgprof}>
+              <div className={styles.imgg}>
+                <Image src={userData.Image} 
+                alt="DP" 
+                layout="fill"
+                objectFit="cover" />
+              </div>
+              <p className={styles.fullname}>Charles Feria</p>
+              <div className={styles.upl}>
+                <Link href="/editprof">Edit Profile</Link>
+              </div>
+            </div>
+          </div>
+          <div className={styles.editprof}>
+            <h1 className={styles.sup}>PROFILE PAGE</h1>
+            <div className={styles.name}>
+              <div className={styles.first}>
+                <h2 className={styles.fn}>First Name</h2>
+                <p className={styles.fnin}>{userData.firstName}</p>
+              </div>
+              <div className={styles.last}>
+                <h2 className={styles.ln}>Last Name</h2>
+                <p className={styles.lnin}>{userData.lastName}</p>
+              </div>
+            </div>
+            <div className={styles.datemob}>
+              <div className={styles.date}>
+                <h3 className={styles.mn}>Mobile Number</h3>
+                <p className={styles.mnin}>{userData.mobileNumber}</p>
+              </div>
+              <div className={styles.mob}>
+                <h3 className={styles.bd}>Birth Date</h3>
+                <p className={styles.bdin}>{userData.birthDate}</p>
+              </div>
+            </div>
+            <h4 className={styles.addr1}>Permanent Address</h4>
+            <p className={styles.addr1in}>{userData.permanentAddress}</p>
+            <div className={styles.cslog}>
+              <h5 className={styles.compslogan}>About You</h5>
+              <p className={styles.cslogan}>{userData.aboutYou}</p> 
+            </div>
+          </div>
+          <div className={styles.exp}>
+            <h1 className={styles.expp}>EXPERIENCES</h1>
+            <div className={styles.exp1}>
+              <h2 className={styles.expp1}>Experience 1</h2>
+              <p className={styles.exp1in}>{userData.experience1}</p>
+            </div>
+          </div>
+        </div>
+      </main>
+    );
+  }
