@@ -133,6 +133,25 @@
   flex-direction: column;
   flex: 2.5;
 }
+.homeButton {
+  margin-bottom: 30px; /* Adjust the margin as needed */
+  text-align: right; /* Align the button to the right */
+}
+
+.homeButton a {
+  padding: 10px 15px;
+  background-color: #3498db; /* Change the background color as needed */
+  color: #fff;
+  text-decoration: none;
+  border-radius: px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.homeButton a:hover {
+  background-color: #2980b9; /* Change the background color on hover as needed */
+}
 .expp {
   font-family: "Archivo";
   font-style: normal;

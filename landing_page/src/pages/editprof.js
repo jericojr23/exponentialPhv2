@@ -2,14 +2,17 @@ import Link from "next/link";
 import styles from './editprof.styles.module.css';
 import Image from "next/image"; 
 import img from "../../public/Poging DP.jpg";
-import fb from "../../public/fb.png";
-import google from "../../public/google.png";
-import linkedin from "../../public/linkedin.png";
 
 export default function EditProf() {
   return (
     <main className={styles.maincon}>
       <div className={styles.oblong}>
+      {/* Home button */}
+      <div className={styles.homeButton}>
+        <Link legacyBehavior href="/">
+          <a>Home</a>
+        </Link>
+      </div>
         <div className={styles.prof}>
           <div className={styles.imgprof}>
             <div className={styles.imgg}>
@@ -20,32 +23,6 @@ export default function EditProf() {
             </div >
             <div className={styles.upl}>
               <input className={styles.photo} type="file" accept="image/*" />
-            </div>
-          </div>
-          <div className={styles.accs}>
-            <div className={styles.fb}>
-              <div className={styles.fblogo}>
-                <Image src={fb} alt="FB" layout="responsive" objectFit="cover" />
-              </div>
-              <div className={styles.fbincon}>
-                <input className={styles.fbin} placeholder="Enter Your Facebook Account" maxLength={30}></input>
-              </div>
-            </div>
-            <div className={styles.google}>
-              <div className={styles.glogo}>
-                <Image src={google} alt="google" layout="responsive" objectFit="cover" />
-              </div>
-              <div className={styles.gincon}>
-                <input className={styles.gin} placeholder="Enter Your Google Account" maxLength={30}></input>
-              </div>
-            </div>
-            <div className={styles.linked}>
-              <div className={styles.linklogo}>
-                <Image src={linkedin} alt="linkedin" layout="responsive" objectFit="cover" />
-              </div>
-              <div className={styles.lincon}>
-                <input className={styles.lin} placeholder="Enter Your LinkedIn Account" maxLength={30}></input>
-              </div>
             </div>
           </div>
         </div>
@@ -84,14 +61,6 @@ export default function EditProf() {
           <div className={styles.exp1}>
             <h2 className={styles.expp1}>Experience 1</h2>
             <input className={styles.exp1in} placeholder="EXPERIENCE 1" maxLength={20}/>
-          </div>
-          <div className={styles.exp2}>
-            <h2 className={styles.expp2}>Experience 2</h2>
-            <input className={styles.exp2in} placeholder="EXPERIENCE 2" maxLength={20}/>
-          </div>
-          <div className={styles.exp3}>
-            <h2 className={styles.expp3}>Experience 3</h2>
-            <input className={styles.exp3in} placeholder="EXPERIENCE 3" maxLength={20}/>
           </div>
           <div className={styles.subton}><a href="/profile" className={styles.submit}>SUBMIT</a></div>
         </div>

@@ -715,6 +715,7 @@ export interface ApiProfileProfile extends Schema.CollectionType {
     singularName: 'profile';
     pluralName: 'profiles';
     displayName: 'profile';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -728,6 +729,8 @@ export interface ApiProfileProfile extends Schema.CollectionType {
     aboutYou: Attribute.Text;
     experience1: Attribute.String;
     profileImage: Attribute.Media;
+    slug: Attribute.UID<'api::profile.profile', 'username'>;
+    username: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
