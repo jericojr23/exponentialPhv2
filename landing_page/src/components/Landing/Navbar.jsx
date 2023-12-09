@@ -81,6 +81,7 @@ const Navbar = () => {
               <button
                 onClick={() => {
                   Cookies.remove('jwt');
+                  Cookies.remove('User ID');
                   window.location.href = '/';
                 }}
               >

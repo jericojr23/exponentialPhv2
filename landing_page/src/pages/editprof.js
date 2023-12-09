@@ -122,6 +122,12 @@ export default function Profile() {
   return (
     <main className={styles.maincon}>
       <div className={styles.oblong}>
+      {/* Home button */}
+      <div className={styles.homeButton}>
+          <Link legacyBehavior href="/">
+            <a>Home</a>
+          </Link>
+        </div>
         <div className={styles.prof}>
           <div className={styles.imgprof}>
             <div className={styles.imgg}>

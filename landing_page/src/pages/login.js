@@ -33,6 +33,8 @@ export default function Login() {
       const data = response.data;
 
       console.log('JWT Token:', data.jwt);
+      console.log('User ID:', data.user.id);
+
 
       // Call the login function from the context to handle authentication
       // Pass the jwt token to the login function
@@ -40,6 +42,7 @@ export default function Login() {
 
       // Set the jwt key in a cookie named 'jwt'
       Cookies.set('jwt', data.jwt);
+      Cookies.set('User ID', data.user.id)
 
       // Redirect to the landing page
       router.push('/');
