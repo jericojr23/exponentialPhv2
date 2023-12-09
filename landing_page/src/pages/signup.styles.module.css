@@ -1,0 +1,309 @@
+.maincon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(
+      circle, 
+      rgb(189, 255, 251), 
+      rgb(00, 204, 255),
+      rgb(0, 122, 255) 
+    ), conic-gradient(
+      from 180deg at 50% 50%, 
+      rgb(189, 255, 251), 
+      rgb(0, 122, 255) 
+    );
+    width: 100%;
+    min-width: 62.5rem;
+    height: 100vh;
+  }
+  
+  .oblong {
+    border-radius: 1.875rem;
+    border: 0.063rem solid #00A9FF;
+    background: floralwhite;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.70);
+  }
+  
+  .sup{
+    text-align: center;
+    color: #000;
+    font-family: "Archivo";
+    font-style: normal;
+    font-weight: bold;
+    line-height: normal;
+  }
+  
+  .supsub{
+    text-align: center;
+    color: #000;
+    font-family: "Archivo";
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+  }
+  
+  .user {
+    text-align: left;
+    color: #000;
+    font-family: "Archivo";
+    font-style: normal;
+    font-weight: bold;
+    line-height: normal;
+  }
+  .userin {
+    border-radius: 0.5rem;
+    border: 0.063rem solid #0CF;
+    background-color: aliceblue;
+    outline: 0 !important;
+    box-sizing: border-box;
+  }
+  
+  .email {
+    text-align: left;
+    color: #000;
+    font-family: "Archivo";
+    font-style: normal;
+    font-weight: bold;
+    line-height: normal;
+  }
+  .emailin {
+    border-radius: 0.5rem;
+    border: 0.063rem solid #0CF;
+    background-color: aliceblue;
+    outline: 0 !important;
+    box-sizing: border-box;
+  }
+  
+  .password {
+    text-align: left;
+    color: #000;
+    font-family: "Archivo";
+    font-style: normal;
+    font-weight: bold;
+    line-height: normal;
+  }
+  .passin {
+    border-radius: 0.5rem;
+    border: 0.063rem solid #0CF;
+    background-color: aliceblue;
+    outline: 0 !important;
+    box-sizing: border-box;
+  }
+  
+  .sign{
+    border-radius: 0.5rem;
+    border: 0.063rem solid #0CF;
+    background-color: #00a3ff;
+    outline: 0 !important;
+    box-sizing: border-box;
+    color: floralwhite;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .sign:hover{
+    background-color: aliceblue;
+    color: #00a3ff;
+  }
+  
+  .or{
+    text-align: center;
+    color: #000;
+    font-family: "Archivo";
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  
+  .fb{
+    border-radius: 0.5rem;
+    border: 0.063rem solid #0CF;
+    background-color: aliceblue;
+    outline: 0 !important;
+    box-sizing: border-box;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: underline;
+  }
+  
+  .fb:hover{
+    color: floralwhite;
+    text-decoration: none;
+  }
+  
+  .backto{
+    text-align: center;
+    color: #000;
+    font-family: "Archivo";
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  
+  .log{
+    text-align: center;
+    color: #00a3ff;
+    font-family: "Archivo";
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  .log:hover{
+    color: #00a3ff;
+    text-decoration: underline;
+  }
+  
+  .img{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    flex-direction: column;
+  }
+  .Expo{
+    text-align: center;
+    color: #000;
+    font-family: "Archivo";
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  @media (max-width: 1980px) {
+    .maincon {
+      min-width: auto; 
+    }
+  
+    .oblong {
+      max-width: 22rem; 
+      height: 80vh; 
+      width: 22rem;
+    }
+  
+    .sup {
+      margin-top: 2rem; 
+      font-size: 1.1rem;
+    }
+    .supsub{
+      margin-top: 0rem; 
+      font-size: 0.7rem;
+      font-weight: normal;
+    }
+  
+    .user{
+      margin-left: 8%;
+      margin-top: 3%; 
+      font-size: 0.7rem;
+    }
+    .userin{
+      margin-top: 0%;
+      margin-left: 8%;
+      width: 18.5rem;
+      height: 5vh;
+      padding: 0.75px 0.938rem;
+      font-size: 0.75rem;
+    }
+    .userin:focus {
+      box-shadow: 4px 4px 4px 0px rgba(16, 155, 241, 0.75);
+    }
+  
+    .email{
+      margin-left: 8%;
+      margin-top: 3%; 
+      font-size: 0.7rem;
+    }
+    .emailin{
+      margin-top: 0%;
+      margin-left: 8%;
+      width: 18.5rem;
+      height: 5vh;
+      padding: 0.75px 0.938rem;
+      font-size: 0.75rem;
+    }
+    .emailin:focus {
+      box-shadow: 4px 4px 4px 0px rgba(16, 155, 241, 0.75);
+    }
+  
+    .password{
+      margin-left: 8%;
+      margin-top: 3%; 
+      font-size: 0.7rem;
+    }
+    .passin{
+      margin-top: 0%;
+      margin-left: 8%;
+      width: 18.5rem;
+      height: 5vh;
+      padding: 0.75px 0.938rem;
+      font-size: 0.75rem;
+    }
+    .passin:focus {
+      box-shadow: 4px 4px 4px 0px rgba(16, 155, 241, 0.75);
+    }
+  
+    .sign{
+      margin-top: 3%;
+      width: 18.4rem;
+      height: 2rem;
+      border: 3px solid rgb(93, 93, 93);
+      border-radius: 0.5rem;
+      transition: all 0.3s;
+      cursor: pointer;
+      background: #0052FF;
+      font-size: 0.8rem;
+      font-weight: normal;
+      font-family: 'Archivo';
+      margin-left: 8.5%;
+    }
+    .sign:hover {
+      background: #00A3FF;
+      color: white;
+      font-size: 0.9rem;
+    }
+    .or {
+      margin-top: 0.5rem; 
+      font-size: 0.7rem
+    }
+    .fb{
+      width: 18.4rem;
+      height: 2rem;
+      border: 3px solid #0052FF;
+      border-radius: 0.5rem;
+      transition: all 0.3s;
+      cursor: pointer;
+      background: white;
+      font-size: 0.8rem;
+      font-weight: normal;
+      font-family: 'Archivo';
+      margin-left: 8.5%;
+      text-decoration: none;
+      color: #0052FF; 
+    }
+    .fb:hover {
+      background: #0052FF;
+      color: white;
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+    .backto{
+      margin-top: 0.63rem;
+      font-size: 0.7rem
+    }
+    .img{
+      margin-top: 1rem;
+      font-size: 0.65rem;
+    }
+    .Expo{
+      margin-top: 0.3rem;
+      font-size: 0.6rem
+    }
+  
+    @font-face{
+      font-family: 'Archivo';
+      src: url('./fonts/Archivo-SemiBold.woff2') format('woff2'),
+           url('./fonts/Archivo-SemiBold.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+      }
+  }
+  
