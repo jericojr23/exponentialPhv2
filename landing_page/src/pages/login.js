@@ -7,37 +7,30 @@ import logo from '/public/ExpoPH.png';
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 import Cookies from 'js-cookie';
+import axios from 'axios'; // Import Axios
 
 const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL;
 
 export default function Login() {
- const router = useRouter();
- const [username, setUsername] = useState('');
- const [password, setPassword] = useState('');
- const { login } = useContext(AuthContext);
+  const router = useRouter();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const { login } = useContext(AuthContext);
 
- const handleLogin = async () => {
+  const handleLogin = async () => {
     try {
-      const response = await fetch(`${apiUrl}/auth/local`, {
-        method: 'POST',
+      const response = await axios.post(`${apiUrl}/auth/local`, {
+        identifier: username,
+        password: password,
+      }, {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          identifier: username,
-          password: password,
-        }),
       });
 
       console.log('Response Status:', response.status);
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Login failed:', errorData.message || 'Unknown error');
-        throw new Error('Login failed');
-      }
-
-      const data = await response.json();
+      const data = response.data;
 
       console.log('JWT Token:', data.jwt);
 
@@ -55,7 +48,7 @@ export default function Login() {
       // Show error message box
       alert('Login failed. Please check your credentials and try again.');
     }
- };
+  };
 
   return (
     <main className={styles.maincon}>
