@@ -124,8 +124,8 @@ export default function Profile() {
       <div className={styles.oblong}>
       {/* Home button */}
       <div className={styles.homeButton}>
-          <Link legacyBehavior href="/">
-            <a>Home</a>
+          <Link legacyBehavior href="/profile">
+            <a>Back</a>
           </Link>
         </div>
         <div className={styles.prof}>
