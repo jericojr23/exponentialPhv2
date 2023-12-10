@@ -631,7 +631,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -660,6 +659,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    isApplicant: Attribute.Boolean;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -740,6 +740,35 @@ export interface ApiFilmFilm extends Schema.CollectionType {
     createdBy: Attribute.Relation<'api::film.film', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::film.film', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiJobJob extends Schema.CollectionType {
+  collectionName: 'jobs';
+  info: {
+    singularName: 'job';
+    pluralName: 'jobs';
+    displayName: 'Job';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    jobTitle: Attribute.String;
+    employmentType: Attribute.Enumeration<
+      ['Full-time', 'Part-time', 'Internship', 'Contractual']
+    >;
+    experienceLevel: Attribute.Enumeration<['Junior', 'Senior', 'Expert']>;
+    salary: Attribute.BigInteger;
+    jobDescription: Attribute.RichText;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::job.job', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::job.job', 'oneToOne', 'admin::user'> &
       Attribute.Private;
   };
 }
@@ -877,6 +906,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::category.category': ApiCategoryCategory;
       'api::film.film': ApiFilmFilm;
+      'api::job.job': ApiJobJob;
       'api::product.product': ApiProductProduct;
       'api::profile.profile': ApiProfileProfile;
       'api::review.review': ApiReviewReview;

@@ -35,17 +35,25 @@ export default function Login() {
       console.log('JWT Token:', data.jwt);
       console.log('User ID:', data.user.id);
 
+      // Check if 'isApplicant' is present in the user object in the response data
+      if ('user' in data && 'isApplicant' in data.user) {
+        console.log('isApplicant:', data.user.isApplicant);
 
-      // Call the login function from the context to handle authentication
-      // Pass the jwt token to the login function
-      login(data.jwt);
+        // Call the login function from the context to handle authentication
+        // Pass the jwt token to the login function
+        login(data.jwt);
 
-      // Set the jwt key in a cookie named 'jwt'
-      Cookies.set('jwt', data.jwt);
-      Cookies.set('User ID', data.user.id)
+        // Set the jwt key and 'isApplicant' in cookies
+        Cookies.set('jwt', data.jwt);
+        Cookies.set('User ID', data.user.id);
+        Cookies.set('isApplicant', data.user.isApplicant.toString());
 
-      // Redirect to the landing page
-      router.push('/');
+        // Redirect to the landing page
+        router.push('/');
+      } else {
+        console.error('Login failed: Missing isApplicant attribute in response data');
+        alert('Login failed. Please try again.');
+      }
     } catch (error) {
       console.error('Login failed', error);
       // Show error message box

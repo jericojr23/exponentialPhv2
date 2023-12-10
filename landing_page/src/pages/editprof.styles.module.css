@@ -42,9 +42,6 @@
   .homeButton {
     margin-bottom: 30px; /* Adjust the margin as needed */
     text-align: right; /* Align the button to the right */
-    margin-top: 20px;
-    margin-left: 20px;
-
   }
   
   .homeButton a {
@@ -56,7 +53,6 @@
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    border-radius: 8px;
   }
   
   .homeButton a:hover {

@@ -23,6 +23,7 @@ const AuthProvider = ({ children }) => {
         setUser(null);
         localStorage.removeItem('jwt');
         localStorage.removeItem('User ID');
+        localStorage.removeItem('isApplicant');
     };
 
     return (

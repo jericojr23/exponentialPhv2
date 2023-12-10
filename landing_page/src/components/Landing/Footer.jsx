@@ -7,7 +7,6 @@ import {
   FiLinkedin,
   FiTwitter,
 } from "react-icons/fi";
-import ExponentialPhLogo from "../ExponentialPhLogo";
 import { categories } from "../../utils/categories";
 
 function Footer() {
@@ -79,7 +78,6 @@ function Footer() {
         })}
       </ul>
       <div className="mt-12 flex items-center justify-between">
-        <ExponentialPhLogo fillColor={"#404145"} />
         <ul className="flex gap-5">
           {socialLinks.map(({ icon, link, name }) => (
             <li

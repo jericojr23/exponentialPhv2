@@ -1,106 +1,86 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { fetcher } from '/lib/api';
-import ExponentialPhLogo from '../ExponentialPhLogo';
+import Image from 'next/image';
 import Cookies from 'js-cookie';
+import logo from '/public/exphlogo.png';
 
 const Navbar = () => {
-  const navLinks = [
-    { name: 'About', link: '/about' },
-    { name: 'Community', link: '/community' },
-  ];
-
-  const [showSearchBar, setShowSearchBar] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-
-  const Search = async (input) => {
-    try {
-      const response = await fetch(`${apiUrl}/task/search?keyword=${input}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-    } catch (error) {
-      console.error('Error searching:', error);
-    }
-  };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setShowSearchBar(true);
-      } else {
-        setShowSearchBar(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const [isApplicant, setIsApplicant] = useState(false);
 
   useEffect(() => {
     const jwt = Cookies.get('jwt');
+    const storedIsApplicant = Cookies.get('isApplicant');
+
     if (jwt) {
       setLoggedIn(true);
+
+      if (storedIsApplicant) {
+        setIsApplicant(storedIsApplicant === 'true');
+      }
     } else {
       setLoggedIn(false);
     }
   }, []);
 
-  const navbarStyle = {
-    backgroundColor: '#00A3FF',
-    color: 'white',
-  };
+  // Update navLinks based on login status
+  const navLinks = loggedIn
+    ? [
+        isApplicant
+          ? { name: 'Profile', link: '/profile' }
+          : { name: 'Create a Task', link: '/create-task' },
+        { name: 'Logout', link: '#', onClick: handleLogout },
+      ].filter(Boolean) // Remove falsy values (null or undefined)
+    : [{ name: 'Login', link: '/login' }];
+
+  function handleLogout() {
+    Cookies.remove('jwt');
+    Cookies.remove('User ID');
+    Cookies.remove('isApplicant');
+    window.location.href = '/';
+  }
 
   return (
     <nav style={navbarStyle} className="w-full py-4">
       <div className="flex justify-between items-center mx-auto px-32">
-        <Link href="/">
-          <ExponentialPhLogo fillColor={'#8EF8FF'} />
-        </Link>
+        <div style={containerStyle}>
+          {/* Wrap your image with Link */}
+          <Link legacyBehavior href="/">
+            <a>
+              <Image src={logo} alt="Description" width={50} height={50} />
+            </a>
+          </Link>
+          <div style={expPhStyle}>Exponential PH</div>
+        </div>
         <ul className="flex gap-6">
-          {navLinks.map(({ name, link }) => (
+          {navLinks.map(({ name, link, onClick }) => (
             <li key={name}>
-              <Link href={link}>{name}</Link>
+              {onClick ? (
+                <button onClick={onClick}>{name}</button>
+              ) : (
+                <Link href={link}>{name}</Link>
+              )}
             </li>
           ))}
-          {!loggedIn && (
-            <li>
-              <Link href="/login">Login</Link>
-            </li>
-          )}
-          {loggedIn && (
-            <li>
-              <Link href="/profile">Profile</Link>
-            </li>
-          )}
-          {loggedIn && (
-            <li>
-              <button
-                onClick={() => {
-                  Cookies.remove('jwt');
-                  Cookies.remove('User ID');
-                  window.location.href = '/';
-                }}
-              >
-                Logout
-              </button>
-            </li>
-          )}
         </ul>
-      </div>
-
-      {/* Search bar container centered */}
-      <div className={`search-bar-container ${showSearchBar ? 'active' : ''}`}>
-        <form className="search-bar-form">
-          <input type="text" placeholder="Search" />
-          <button type="submit">Search</button>
-        </form>
       </div>
     </nav>
   );
+};
+
+const navbarStyle = {
+  backgroundColor: '#00A3FF',
+  color: 'white',
+};
+
+const containerStyle = {
+  display: 'flex',
+  alignItems: 'center',
+};
+
+const expPhStyle = {
+  fontSize: '1.5rem',
+  marginLeft: '0.5rem',
 };
 
 export default Navbar;

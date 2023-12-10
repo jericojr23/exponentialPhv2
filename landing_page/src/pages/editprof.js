@@ -67,7 +67,7 @@ export default function Profile() {
   const handleUpdateProfile = async () => {
     try {
       const response = await axios.put(
-        `${apiUrl}/profiles/1`, // Update with your API endpoint
+        `${apiUrl}/profiles/${Cookies.get('User ID')}`, // Update with your API endpoint
         {
           data: {
             firstName: userData.firstName,
@@ -96,6 +96,7 @@ export default function Profile() {
   
       // Handle successful update, if needed
       console.log('Profile updated successfully');
+      window.location.href = '/profile';
     } catch (error) {
       console.error('Error updating user profile:', error.message || 'Unknown error');
       setError(error);

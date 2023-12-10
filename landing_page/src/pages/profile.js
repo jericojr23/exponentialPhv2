@@ -80,8 +80,8 @@ export default function Profile() {
   return (
     <main className={styles.maincon}>
       <div className={styles.oblong}>
-        {/* Home button */}
-        <div className={styles.homeButton}>
+      {/* Home button */}
+      <div className={styles.homeButton}>
           <Link legacyBehavior href="/">
             <a>Home</a>
           </Link>
@@ -91,7 +91,7 @@ export default function Profile() {
             <div className={styles.imgg}>
               <Image src={userData.Image} alt="DP" layout="fill" objectFit="cover" />
             </div>
-            <p className={styles.fullname}>Charles Feria</p>
+            <p className={styles.fullname}>{userData.firstName} {userData.lastName}</p>
             <div className={styles.upl}>
               <Link href="/editprof">Edit Profile</Link>
             </div>
@@ -137,3 +137,12 @@ export default function Profile() {
     </main>
   );
 }
+
+// const roundedButton = {
+//   borderRadius: '8px',
+//   padding: '8px 16px',
+//   backgroundColor: '#0070f3',
+//   color: 'white',
+//   textDecoration: 'none',
+//   display: 'inline-block',
+// };

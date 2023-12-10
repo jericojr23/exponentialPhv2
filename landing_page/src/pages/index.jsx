@@ -14,8 +14,6 @@ function Index() {
     <div>
       <Navbar/>
       <HeroBanner />
-      <Companies />
-      <PopularTasks />
       <Everything />
       <Services />
       <ExponentialPhBusiness />
