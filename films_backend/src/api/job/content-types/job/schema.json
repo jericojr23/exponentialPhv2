@@ -4,7 +4,7 @@
   "info": {
     "singularName": "job",
     "pluralName": "jobs",
-    "displayName": "task",
+    "displayName": "job",
     "description": ""
   },
   "options": {
@@ -13,7 +13,8 @@
   "pluginOptions": {},
   "attributes": {
     "jobTitle": {
-      "type": "string"
+      "type": "string",
+      "unique": true
     },
     "employmentType": {
       "type": "enumeration",

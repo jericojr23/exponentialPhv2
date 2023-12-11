@@ -749,14 +749,14 @@ export interface ApiJobJob extends Schema.CollectionType {
   info: {
     singularName: 'job';
     pluralName: 'jobs';
-    displayName: 'task';
+    displayName: 'job';
     description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    jobTitle: Attribute.String;
+    jobTitle: Attribute.String & Attribute.Unique;
     employmentType: Attribute.Enumeration<
       ['Full-time', 'Part-time', 'Internship', 'Contractual']
     >;

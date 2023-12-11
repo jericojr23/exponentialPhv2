@@ -41,6 +41,7 @@ const CreateJobPage = () => {
     } catch (error) {
       // Handle errors and log the error details
       console.error('Error creating job:', error.response?.data?.error || error.message);
+      alert(error.response.message)
     }
   };
 
