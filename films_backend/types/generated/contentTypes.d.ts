@@ -763,6 +763,11 @@ export interface ApiJobJob extends Schema.CollectionType {
     experienceLevel: Attribute.Enumeration<['Junior', 'Senior', 'Expert']>;
     salary: Attribute.BigInteger;
     jobDescription: Attribute.RichText;
+    whoApplied: Attribute.Relation<
+      'api::job.job',
+      'manyToMany',
+      'api::profile.profile'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -833,6 +838,11 @@ export interface ApiProfileProfile extends Schema.CollectionType {
     profileImage: Attribute.Media;
     slug: Attribute.UID<'api::profile.profile', 'username'>;
     username: Attribute.String;
+    appliedAt: Attribute.Relation<
+      'api::profile.profile',
+      'manyToMany',
+      'api::job.job'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

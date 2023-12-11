@@ -38,6 +38,12 @@
     },
     "jobDescription": {
       "type": "richtext"
+    },
+    "whoApplied": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::profile.profile",
+      "inversedBy": "appliedAt"
     }
   }
 }

@@ -50,6 +50,12 @@
     },
     "username": {
       "type": "string"
+    },
+    "appliedAt": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::job.job",
+      "mappedBy": "whoApplied"
     }
   }
 }
