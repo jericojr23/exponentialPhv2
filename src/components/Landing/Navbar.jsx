@@ -56,9 +56,11 @@ const Navbar = () => {
           {navLinks.map(({ name, link, onClick }) => (
             <li key={name}>
               {onClick ? (
-                <button onClick={onClick}>{name}</button>
+                <button onClick={onClick} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>{name}</button>
               ) : (
-                <Link href={link}>{name}</Link>
+                <Link href={link}>
+                  <div style={{ textDecoration: 'none' }}>{name}</div>
+                </Link>
               )}
             </li>
           ))}
@@ -67,6 +69,7 @@ const Navbar = () => {
     </nav>
   );
 };
+
 
 const navbarStyle = {
   backgroundColor: '#00A3FF',
