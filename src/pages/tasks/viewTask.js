@@ -12,7 +12,7 @@ export default function CreateTask() {
     <main className={styles.maincon}>
       <div className={styles.container}>
         <div className={styles.formContainer}>
-          <h1 className={styles.heading}>APPLY FOR TASK</h1>
+          <h1 className={styles.heading}>TASK DETAILS</h1>
           <form className={styles.form} onSubmit={handleSubmit} id="createTaskForm">
             <div className={styles.formGroup}>
               <label htmlFor="taskName" className={styles.label}>
@@ -79,9 +79,9 @@ export default function CreateTask() {
             </div>
             {/* Submit button inside the company form */}
             <div className={styles.subton}>
-              <button type="submit" className={styles.submit}>
-                APPLY
-              </button>
+              {/* <button type="submit" className={styles.submit}>
+                VIEW
+              </button> */}
             </div>
           </form>
         </div>
