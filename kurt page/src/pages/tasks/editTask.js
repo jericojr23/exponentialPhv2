@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { useRouter } from 'next/router';  // Import the useRouter hook
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 import styles from './createTask.styles.module.css';
-import Image from 'next/image';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
 const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL;
 
-const CreateTaskPage = () => {
-  const router = useRouter();  // Initialize the useRouter hook
+const EditTaskPage = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     jobTitle: '',
     employmentType: 'Full-time',
@@ -21,8 +21,30 @@ const CreateTaskPage = () => {
   });
 
   const jwt = Cookies.get('jwt');
+  const id = Cookies.get('jobID');
 
-  const handleChange = (e) => {
+  useEffect(() => {
+    const fetchJobData = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/jobs/${id}`, { // Fix string interpolation here
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        });
+
+        // ... (rest of the code)
+      } catch (error) {
+        console.error('Error fetching job:', error.message || 'Unknown error');
+        // Handle error
+      }
+    };
+
+    if (id && jwt) {
+      fetchJobData();
+    }
+  }, [id, jwt]);
+
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -30,42 +52,45 @@ const CreateTaskPage = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleUpdateJob = async (e) => {
+    e.preventDefault(); // Prevent the default form submission
 
     try {
-      const response = await axios.post(`${apiUrl}/jobs`, { data: formData }, {
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-          'Content-Type': 'application/json',
+      const response = await axios.put(
+        `${apiUrl}/jobs/${id}`,
+        {
+          data: formData,
         },
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
-      // Handle the success response as needed
-      console.log('Job created successfully:', response.data);
-      const jobID = response.data.data.id; // Access 'data' property
+      console.log('Update Job Response:', response.data);
 
-      console.log('Job ID:', jobID);
+      if (!response.data) {
+        console.error('Update job failed:', 'Unknown error');
+        throw new Error('Update Job Error: Unknown error');
+      }
 
-      // Store the jobID in a cookie
-      Cookies.set('jobID', jobID);
-
-      // Redirect to /tasks/viewTask
+      // Handle successful update, if needed
+      console.log('Job updated successfully');
       router.push('/tasks/viewTask');
     } catch (error) {
-      // Handle errors and log the error details
-      console.error('Error creating job:', error.response?.data?.error || error.message);
-      alert(error.message);
+      console.error('Error updating job:', error.message || 'Unknown error');
+      // Handle error
     }
   };
-
 
   return (
     <main className={styles.maincon}>
       <div className={styles.container}>
         <div className={styles.formContainer}>
           <h1 className={styles.heading}>CREATE TASK</h1>
-          <form className={styles.form} onSubmit={handleSubmit} id="createTaskForm">
+          <form className={styles.form} onSubmit={handleUpdateJob} id="createTaskForm">
             <div className={styles.formGroup}>
               <label htmlFor="taskName" className={styles.label}>
                 Task Name
@@ -74,7 +99,7 @@ const CreateTaskPage = () => {
                 type="text"
                 name="jobTitle"
                 value={formData.jobTitle}
-                onChange={handleChange} 
+                onChange={handleInputChange} 
                 required
                 className={styles.input}
                 placeholder="Enter Task Name"
@@ -90,7 +115,7 @@ const CreateTaskPage = () => {
                 placeholder="Enter Project Salary"
                 name="salary" 
                 value={formData.salary} 
-                onChange={handleChange} 
+                onChange={handleInputChange} 
                 required 
               />
             </div>
@@ -103,7 +128,7 @@ const CreateTaskPage = () => {
                 defaultValue=""
                 name="experienceLevel" 
                 value={formData.experienceLevel} 
-                onChange={handleChange} 
+                onChange={handleInputChange} 
                 required
               >
                 <option value="" disabled>Select Experience Level</option>
@@ -133,7 +158,7 @@ const CreateTaskPage = () => {
                 defaultValue=""
                 name="employmentType" 
                 value={formData.employmentType} 
-                onChange={handleChange} 
+                onChange={handleInputChange} 
                 required
               >
                 <option value="" disabled>Select Employment Type</option>
@@ -153,7 +178,7 @@ const CreateTaskPage = () => {
                 rows={3}
                 name="jobDescription" 
                 value={formData.jobDescription} 
-                onChange={handleChange} 
+                onChange={handleInputChange} 
                 required
               />
             </div>
@@ -162,7 +187,7 @@ const CreateTaskPage = () => {
 
         <div className={styles.formContainer}>
           <h1 className={styles.heading}>COMPANY</h1>
-          <form className={styles.form} onSubmit={handleSubmit} id="companyForm">
+          <form className={styles.form} onSubmit={handleInputChange} id="companyForm">
             <div className={styles.formGroup}>
               <label htmlFor="companyName" className={styles.label}>
                 Company Name
@@ -174,7 +199,7 @@ const CreateTaskPage = () => {
                 maxLength={20}
                 name="companyName" 
                 value={formData.companyName} 
-                onChange={handleChange} 
+                onChange={handleInputChange} 
                 required
               />
             </div>
@@ -187,7 +212,7 @@ const CreateTaskPage = () => {
                 placeholder="Enter Company Address"
                 name="companyAddress" 
                 value={formData.companyAddress} 
-                onChange={handleChange} 
+                onChange={handleInputChange} 
                 required
               />
             </div>
@@ -203,7 +228,7 @@ const CreateTaskPage = () => {
                 maxLength={20}
                 name="companyWebsite" 
                 value={formData.companyWebsite} 
-                onChange={handleChange} 
+                onChange={handleInputChange} 
                 required
               />
             </div>
@@ -219,4 +244,4 @@ const CreateTaskPage = () => {
     </main>
   );
 }
-export default CreateTaskPage;
+export default EditTaskPage;

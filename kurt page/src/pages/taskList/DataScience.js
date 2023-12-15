@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';  // Import the useRouter hook
+import { useRouter } from 'next/router';
 import styles from './createTask.styles.module.css';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
@@ -24,10 +24,12 @@ export default function Task() {
     companyWebsite: '',
   });
 
+  const [containerWidth, setContainerWidth] = useState('50%'); // Initial width, adjust as needed
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/jobs/${Cookies.get('jobID')}`, {
+        const response = await axios.get(`${apiUrl}/jobs/34`, {
           headers: {
             Authorization: `Bearer ${jwt}`,
             'Content-Type': 'application/json',
@@ -36,32 +38,34 @@ export default function Task() {
 
         console.log('Profile Response:', response);
 
-        const userDataResponse = response.data.data; // Access 'data' property
+        const userDataResponse = response.data.data;
 
-        // Ensure the response structure matches your expectations
         if (userDataResponse && userDataResponse.attributes) {
           const jobAttributes = userDataResponse.attributes;
-        
+
           setUserData({
             jobTitle: jobAttributes.jobTitle,
             employmentType: jobAttributes.employmentType,
             experienceLevel: jobAttributes.experienceLevel,
             salary: jobAttributes.salary,
             jobDescription: jobAttributes.jobDescription,
-            companyName:jobAttributes.companyName,
+            companyName: jobAttributes.companyName,
             companyAddress: jobAttributes.companyAddress,
             companyWebsite: jobAttributes.companyWebsite,
           });
-        
-          // Update formData state with job details
+
           setFormData({
             ...formData,
             jobTitle: jobAttributes.jobTitle,
             salary: jobAttributes.salary,
-            // Add other fields as needed
           });
+
+          // Dynamically adjust container width based on jobDescription length
+          const contentWidth =
+            jobAttributes.jobDescription.length > 200 ? '70%' : '50%';
+          setContainerWidth(contentWidth);
         } else {
-          setUserData(null); // Job not found or missing attributes, set userData to null
+          setUserData(null);
         }
 
         setLoading(false);

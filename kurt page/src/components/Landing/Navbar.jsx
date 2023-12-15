@@ -25,18 +25,22 @@ const Navbar = () => {
 
   // Update navLinks based on login status
   const navLinks = loggedIn
-    ? [
-        isApplicant
-          ? { name: 'Profile', link: '/profile' }
-          : { name: 'Create a Task', link: '/tasks/createTask' },
-        { name: 'Logout', link: '#', onClick: handleLogout },
-      ].filter(Boolean) // Remove falsy values (null or undefined)
-    : [{ name: 'Login', link: '/login' }];
+  ? [
+      isApplicant
+        ? { name: 'Profile', link: '/profile' }
+        : { name: 'Create a Task', link: '/tasks/createTask' },
+      { name: 'Task', link: '/tasks/viewTask' },
+      { name: 'Logout', link: '#', onClick: handleLogout },
+    ].filter(Boolean)
+  : [{ name: 'Login', link: '/login' }];
 
   function handleLogout() {
     Cookies.remove('jwt');
     Cookies.remove('User ID');
     Cookies.remove('isApplicant');
+    Cookies.remove('jobID');
+    Cookies.remove('taskID');
+    Cookies.remove('taskTitle');
     window.location.href = '/';
   }
 
