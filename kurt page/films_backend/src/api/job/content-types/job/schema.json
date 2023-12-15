@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "jobs",
+  "info": {
+    "singularName": "job",
+    "pluralName": "jobs",
+    "displayName": "job",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "jobTitle": {
+      "type": "string",
+      "unique": true
+    },
+    "employmentType": {
+      "type": "enumeration",
+      "enum": [
+        "Full-time",
+        "Part-time",
+        "Internship",
+        "Contractual"
+      ]
+    },
+    "experienceLevel": {
+      "type": "enumeration",
+      "enum": [
+        "Junior",
+        "Senior",
+        "Expert"
+      ]
+    },
+    "salary": {
+      "type": "biginteger"
+    },
+    "jobDescription": {
+      "type": "richtext"
+    },
+    "whoApplied": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::profile.profile",
+      "inversedBy": "appliedAt"
+    },
+    "companyName": {
+      "type": "string"
+    },
+    "companyAddress": {
+      "type": "text"
+    },
+    "companyWebsite": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "name": "exponentialPh-front",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@stripe/react-stripe-js": "^2.1.0",
+    "@stripe/stripe-js": "^1.52.1",
+    "@types/node": "18.15.11",
+    "@types/react": "18.0.32",
+    "@types/react-dom": "18.0.11",
+    "axios": "^1.6.2",
+    "bootstrap": "^5.3.2",
+    "eslint": "8.37.0",
+    "eslint-config-next": "13.2.4",
+    "firebase": "^9.19.1",
+    "framer-motion": "^10.16.5",
+    "js-cookie": "^3.0.5",
+    "next": "^13.2.4",
+    "nookies": "^2.5.2",
+    "react": "18.2.0",
+    "react-bootstrap": "^2.9.1",
+    "react-cookie": "^4.1.1",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.8.0",
+    "reactstrap": "^9.2.1",
+    "strapi-sdk-javascript": "^0.3.3",
+    "typescript": "5.0.3"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.3.1"
+  }
+}
