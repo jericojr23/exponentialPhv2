@@ -4,7 +4,7 @@
   "info": {
     "singularName": "job",
     "pluralName": "jobs",
-    "displayName": "job",
+    "displayName": "Job",
     "description": ""
   },
   "options": {
@@ -13,8 +13,7 @@
   "pluginOptions": {},
   "attributes": {
     "jobTitle": {
-      "type": "string",
-      "unique": true
+      "type": "string"
     },
     "employmentType": {
       "type": "enumeration",
@@ -25,14 +24,14 @@
         "Contractual"
       ]
     },
-    // "experienceLevel": {
-    //   "type": "enumeration",
-    //   "enum": [
-    //     "Junior",
-    //     "Senior",
-    //     "Expert"
-    //   ]
-    // },
+    "experienceLevel": {
+      "type": "enumeration",
+      "enum": [
+        "Junior",
+        "Senior",
+        "Expert"
+      ]
+    },
     "salary": {
       "type": "biginteger"
     },
@@ -43,13 +42,13 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::profile.profile",
-      "inversedBy": "appliedAt"
+      "mappedBy": "appliedAt"
     },
     "companyName": {
       "type": "string"
     },
     "companyAddress": {
-      "type": "text"
+      "type": "string"
     },
     "companyWebsite": {
       "type": "string"

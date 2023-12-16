@@ -749,14 +749,14 @@ export interface ApiJobJob extends Schema.CollectionType {
   info: {
     singularName: 'job';
     pluralName: 'jobs';
-    displayName: 'job';
+    displayName: 'Job';
     description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    jobTitle: Attribute.String & Attribute.Unique;
+    jobTitle: Attribute.String;
     employmentType: Attribute.Enumeration<
       ['Full-time', 'Part-time', 'Internship', 'Contractual']
     >;
@@ -769,7 +769,7 @@ export interface ApiJobJob extends Schema.CollectionType {
       'api::profile.profile'
     >;
     companyName: Attribute.String;
-    companyAddress: Attribute.Text;
+    companyAddress: Attribute.String;
     companyWebsite: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

@@ -29,10 +29,10 @@ const Navbar = () => {
       isApplicant
         ? { name: 'Profile', link: '/profile' }
         : { name: 'Create a Task', link: '/tasks/createTask' },
-      { name: 'Task', link: '/tasks/viewTask' },
       { name: 'Logout', link: '#', onClick: handleLogout },
-    ].filter(Boolean)
+    ].filter(({ name }) => !isApplicant || name !== 'Create a Task')
   : [{ name: 'Login', link: '/login' }];
+
 
   function handleLogout() {
     Cookies.remove('jwt');
