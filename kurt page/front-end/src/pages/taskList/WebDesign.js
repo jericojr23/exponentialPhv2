@@ -24,6 +24,7 @@ export default function Task() {
     companyAddress: '',
     companyWebsite: '',
   });
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -106,11 +107,27 @@ export default function Task() {
     companyWebsite = userData.companyWebsite;
   }
 
-  function handleApplyClick() {
-    if (appliedAt && userData && userData.id === appliedAt) {
-      alert("You have already applied for this job.");
-    } else {
-      window.location.href = "/apply";
+  async function handleApplyClick() {
+    try {
+      // Add logic to send the user's application data to the server
+      const response = await axios.post(`${apiUrl}/jobs/apply`, {
+        jobId: 6, // Update with the correct job ID
+        userId: appliedAt, // Update with the correct user ID
+        // Add other application data here
+      }, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log('Application Response:', response);
+
+      // Redirect to the application page
+      router.push('/apply');
+    } catch (error) {
+      console.error('Error applying for the job:', error.message || 'Unknown error');
+      // Handle error, show an alert, or redirect to an error page
     }
   }
 
