@@ -27,7 +27,7 @@ export default function Task() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/jobs/4?populate=whoApplied`, {
+        const response = await axios.get(`${apiUrl}/jobs/6?populate=whoApplied`, {
           headers: {
             Authorization: `Bearer ${jwt}`,
             'Content-Type': 'application/json',
@@ -196,7 +196,7 @@ export default function Task() {
             </div>
                  {/* Apply button */}
       <div className={styles.applyButton}>
-        {userId && userId === '4' ? (
+        {userId && userId === '6' ? (
           <p>Already Applied</p>
         ) : (
           <button onClick={handleApplyClick}>Apply</button>
