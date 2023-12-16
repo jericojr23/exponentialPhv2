@@ -11,9 +11,11 @@
   }
   
   .formContainer {
-    background-color: #f5f5f5;
-    padding: 20px;
-    flex: 1;
+    width: 100%; /* Make each form container take the full width of the parent */
+    overflow: auto; /* Enable overflow for scrolling if content is too large */
+    padding: 20px; /* Add padding for better spacing */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+
   }
   
   .heading {
@@ -27,7 +29,7 @@
   }
   
   .formGroup {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
   
   .label {
@@ -86,6 +88,8 @@
     border: 0.063rem solid #00A9FF;
     background: floralwhite;
     box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.70);
+    max-width: 80%; /* Adjust as needed */
+
   }
   
   .prof {
@@ -93,7 +97,8 @@
     border-top-left-radius: 1.875rem;
     border-bottom-left-radius: 1.875rem;
     border-right: 0.063rem solid #00A9FF;
-    flex: 2.5;
+    flex: 3; /* Adjust as needed */
+
   }
   
   .imgprof {
@@ -255,6 +260,7 @@
     box-sizing: border-box;
     padding: 0.5rem;
     margin-top: 0%;
+    width: 80% !important; /* Adjust as needed */
   }
   @media (max-width: 1980px) {
     .maincon {
