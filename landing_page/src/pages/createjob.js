@@ -31,10 +31,10 @@ const CreateJobPage = () => {
     try {
       const response = await axios.post(`${apiUrl}/jobs`, { data: formData }, {
         headers: {
-          Authorization: `Bearer ${jwt}`,
-          'Content-Type': 'application/json',
+           Authorization: `Bearer ${jwt}`,
+           'Content-Type': 'application/json',
         },
-      });
+       });
   
       // Handle the success response as needed
       console.log('Job created successfully:', response.data);
