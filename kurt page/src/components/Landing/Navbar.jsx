@@ -36,11 +36,12 @@ const Navbar = () => {
 
   function handleLogout() {
     Cookies.remove('jwt');
-    Cookies.remove('User ID');
+    Cookies.remove('UserID');
     Cookies.remove('isApplicant');
     Cookies.remove('jobID');
     Cookies.remove('taskID');
     Cookies.remove('taskTitle');
+    Cookies.remove('appliedAt');
     window.location.href = '/';
   }
 

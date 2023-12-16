@@ -15,7 +15,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`${apiUrl}/profiles/${Cookies.get('User ID')}`, {
+        const response = await fetch(`${apiUrl}/profiles/${Cookies.get('UserID')}`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${jwt}`,

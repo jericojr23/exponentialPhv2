@@ -27,7 +27,7 @@ export default function Task() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/jobs/34`, {
+        const response = await axios.get(`${apiUrl}/jobs/34?populate=whoApplied`, {
           headers: {
             Authorization: `Bearer ${jwt}`,
             'Content-Type': 'application/json',
@@ -41,7 +41,8 @@ export default function Task() {
         // Ensure the response structure matches your expectations
         if (userDataResponse && userDataResponse.attributes) {
           const jobAttributes = userDataResponse.attributes;
-        
+        // Print the id attribute
+        console.log('Job ID:', userDataResponse.id);
           setUserData({
             jobTitle: jobAttributes.jobTitle,
             employmentType: jobAttributes.employmentType,
@@ -106,6 +107,18 @@ export default function Task() {
     companyName = userData.companyName;
     companyAddress = userData.companyAddress;
     companyWebsite = userData.companyWebsite;
+  }
+  const userId = Cookies.get('appliedAt');
+  console.log('userId:', userId);
+
+  function handleApplyClick() {
+    if (userId && userData && userData.id === userId) {
+      // User is already applied, show an alert
+      alert("You have already applied for this job.");
+    } else {
+      // Redirect to the application page
+      window.location.href = "/apply";
+    }
   }
   return (
     <main className={styles.maincon}>
@@ -182,11 +195,14 @@ export default function Task() {
               <p className={styles.fnin}>{companyWebsite}</p>
             </div>
                   {/* Apply button */}
-      <div className={styles.applyButton}>
-        <Link legacyBehavior href="/apply">
-          <a>Apply</a>
-        </Link>
-      </div>
+                  <div className={styles.applyButton}>
+                    {userId && userData && userData.id === userId ? (
+                        <p>Applied</p>
+                    ) : (
+                        <button onClick={handleApplyClick}>Apply</button>
+                    )}
+                    </div>
+
             {/* Submit button inside the company form */}
             <div className={styles.subton}>
               {/* <button type="submit" className={styles.submit}>
@@ -199,4 +215,3 @@ export default function Task() {
     </main>
   );
 }
-

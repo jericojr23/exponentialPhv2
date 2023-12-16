@@ -19,35 +19,65 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post(`${apiUrl}/auth/local`, {
-        identifier: username,
-        password: password,
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await axios.post(
+        `${apiUrl}/auth/local`,
+        {
+          identifier: username,
+          password: password,
         },
-      });
-
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+  
       console.log('Response Status:', response.status);
-
+  
       const data = response.data;
-
+  
       console.log('JWT Token:', data.jwt);
       console.log('User ID:', data.user.id);
-
+  
       // Check if 'isApplicant' is present in the user object in the response data
       if ('user' in data && 'isApplicant' in data.user) {
         console.log('isApplicant:', data.user.isApplicant);
-
+  
         // Call the login function from the context to handle authentication
         // Pass the jwt token to the login function
         login(data.jwt);
-
+  
         // Set the jwt key and 'isApplicant' in cookies
         Cookies.set('jwt', data.jwt);
-        Cookies.set('User ID', data.user.id);
+        Cookies.set('UserID', data.user.id);
         Cookies.set('isApplicant', data.user.isApplicant.toString());
+  
+        // Fetch appliedAt data using dynamic URL
+        const userId = data.user.id;
+        const profileResponse = await axios.get(
+          `${apiUrl}/profiles/${userId}?populate=appliedAt`,
+          {
+            headers: {
+              Authorization: `Bearer ${data.jwt}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+  
+        console.log('Profile Response:', profileResponse);
+  
+        // Access the 'appliedAt' data and store its ID in cookies
+        const appliedAtData = profileResponse.data.data.attributes.appliedAt.data;
+        console.log('AppliedAt Data:', appliedAtData);
 
+        if (appliedAtData && appliedAtData.length > 0) {
+          const appliedAtId = appliedAtData[0].id;
+          Cookies.set('appliedAt', appliedAtId);
+          console.log('AppliedAt ID stored in cookies:', appliedAtId);
+        } else {
+          console.error('AppliedAt data not found or empty:', appliedAtData);
+        }
+          
         // Redirect to the landing page
         router.push('/');
       } else {

@@ -15,7 +15,6 @@ function Index() {
       <Navbar/>
       <HeroBanner />
       <Everything />
-      <Services />
       <ExponentialPhBusiness />
       <JoinExponentialPh />
       <Footer/>

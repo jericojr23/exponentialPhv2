@@ -50,53 +50,8 @@ function HomeBanner() {
         <i>The Best Technological Solutions </i>
         </h1>
         <div className="flex align-middle">
-          <div className="relative">
-            <IoSearchOutline className="absolute text-gray-500 text-2xl flex align-middle h-full left-2" />
-            <input
-              type="text"
-              className="h-14 w-[450px] pl-10 rounded-md rounded-r-none"
-              placeholder={`Try "building mobile app"`}
-              value={searchData}
-              onChange={(e) => setSearchData(e.target.value)}
-            />
-          </div>
-          <button
-            className="bg-[#00A9FF] text-white px-12 text-lg font-semibold rounded-r-md"
-            onClick={() => router.push(`/search?q=${searchData}`)}
-          >
-            Search
-          </button>
         </div>
-        <div className="text-white flex gap-4">
-          Popular:
-          <ul className="flex gap-5">
-            <li
-              className="text-sm py-1 px-3 border rounded-full hover:bg-white hover:text-black transition-all duration-300 cursor-pointer"
-              onClick={() => router.push("/search?q=website design")}
-            >
-              Website Design
-            </li>
-            <li
-              className="text-sm py-1 px-3 border rounded-full hover-bg-white hover-text-black transition-all duration-300 cursor-pointer"
-              onClick={() => router.push("/search?q=wordpress")}
-            >
-              Model Cleaning
-            </li>
-            <li
-              className="text-sm py-1 px-3 border rounded-full hover-bg-white hover-text-black transition-all duration-300 cursor-pointer"
-              onClick={() => router.push("/search?q=logo design")}
-            >
-              Mobile Development
-            </li>
-            {/* <li
-              className="text-sm py-1 px-3 border rounded-full hover-bg-white hover-text-black transition-all duration-300 cursor-pointer"
-              onClick={() => router.push("/search?q=ai services")}
-            >
-              AI Services
-            </li> */}
-            
-          </ul>
-        </div>
+        
       </div>
     </div>
   );
