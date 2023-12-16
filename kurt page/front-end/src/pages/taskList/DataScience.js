@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';  // Import the useRouter hook
+import { useRouter } from 'next/router';  
 import styles from './createTask.styles.module.css';
 import Image from 'next/image';
 import Cookies from 'js-cookie';
@@ -13,6 +13,7 @@ export default function Task() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const jwt = Cookies.get('jwt');
+  const appliedAt = Cookies.get('appliedAt');
   const [formData, setFormData] = useState({
     jobTitle: '',
     employmentType: '',
@@ -36,25 +37,22 @@ export default function Task() {
 
         console.log('Profile Response:', response);
 
-        const userDataResponse = response.data.data; // Access 'data' property
+        const userDataResponse = response.data.data; 
 
-        // Ensure the response structure matches your expectations
         if (userDataResponse && userDataResponse.attributes) {
           const jobAttributes = userDataResponse.attributes;
-        // Print the id attribute
-        console.log('Job ID:', userDataResponse.id);
+          console.log('Job ID:', userDataResponse.id);
           setUserData({
             jobTitle: jobAttributes.jobTitle,
             employmentType: jobAttributes.employmentType,
             experienceLevel: jobAttributes.experienceLevel,
             salary: jobAttributes.salary,
             jobDescription: jobAttributes.jobDescription,
-            companyName:jobAttributes.companyName,
+            companyName: jobAttributes.companyName,
             companyAddress: jobAttributes.companyAddress,
             companyWebsite: jobAttributes.companyWebsite,
           });
-        
-          // Update formData state with job details
+
           setFormData({
             ...formData,
             jobTitle: jobAttributes.jobTitle,
@@ -62,7 +60,7 @@ export default function Task() {
             // Add other fields as needed
           });
         } else {
-          setUserData(null); // Job not found or missing attributes, set userData to null
+          setUserData(null);
         }
 
         setLoading(false);
@@ -78,16 +76,16 @@ export default function Task() {
     } else {
       setLoading(false);
     }
-  }, [jwt]);
+  }, [jwt, appliedAt]);
 
-  let jobTitle = 'Unknown Job Title'; // Define jobTitle with a default value
-  let employmentType = 'Unknown Job Title'; // Define jobTitle with a default value
-  let experienceLevel = 'Unknown Job Title'; // Define jobTitle with a default value
-  let salary = 'Unknown Job Title'; // Define jobTitle with a default value
-  let jobDescription = 'Unknown Job Title'; // Define jobTitle with a default value
-  let companyName = 'Unknown Job Title'; // Define jobTitle with a default value
-  let companyAddress = 'Unknown Job Title'; // Define jobTitle with a default value
-  let companyWebsite = 'Unknown Job Title'; // Define jobTitle with a default value
+  let jobTitle = 'Unknown Job Title';
+  let employmentType = 'Unknown Job Title';
+  let experienceLevel = 'Unknown Job Title';
+  let salary = 'Unknown Job Title';
+  let jobDescription = 'Unknown Job Title';
+  let companyName = 'Unknown Job Title';
+  let companyAddress = 'Unknown Job Title';
+  let companyWebsite = 'Unknown Job Title';
 
   if (loading) {
     return <div>Loading...</div>;
@@ -98,33 +96,28 @@ export default function Task() {
   }
 
   if (userData) {
-    // If userData is available, update jobTitle
     jobTitle = userData.jobTitle;
     employmentType = userData.employmentType;
-    experienceLevel=userData.experienceLevel;
+    experienceLevel = userData.experienceLevel;
     salary = userData.salary;
     jobDescription = userData.jobDescription;
     companyName = userData.companyName;
     companyAddress = userData.companyAddress;
     companyWebsite = userData.companyWebsite;
   }
-  const userId = Cookies.get('appliedAt');
-  console.log('userId:', userId);
 
   function handleApplyClick() {
-    if (userId && userData && userData.id === userId) {
-      // User is already applied, show an alert
+    if (appliedAt && userData && userData.id === appliedAt) {
       alert("You have already applied for this job.");
     } else {
-      // Redirect to the application page
       window.location.href = "/apply";
     }
   }
+
   return (
     <main className={styles.maincon}>
       <div className={styles.container}>
-            {/* Home button */}
-            <div className={styles.homeButton}>
+        <div className={styles.homeButton}>
           <Link legacyBehavior href="/">
             <a>Home</a>
           </Link>
@@ -132,11 +125,11 @@ export default function Task() {
         <div className={styles.formContainer}>
           <h1 className={styles.heading}>TASK DETAILS</h1>
           <form className={styles.form} id="createTaskForm">
-          <div className={styles.formGroup}>
-            <label htmlFor="taskName" className={styles.label}>
-              Task Name
-            </label>
-            <p className={styles.fnin}>{jobTitle}</p>
+            <div className={styles.formGroup}>
+              <label htmlFor="taskName" className={styles.label}>
+                Task Name
+              </label>
+              <p className={styles.fnin}>{jobTitle}</p>
             </div>
             <div className={styles.formGroup}>
               <label htmlFor="projectSalary" className={styles.label}>
@@ -150,12 +143,6 @@ export default function Task() {
               </label>
               <p className={styles.fnin}>{experienceLevel}</p>
             </div>
-            {/* <div className={styles.formGroup}>
-              <label htmlFor="taskCategory" className={styles.label}>
-                Task Category
-              </label>
-              <p className={styles.fnin}></p>
-            </div> */}
             <div className={styles.formGroup}>
               <label htmlFor="employmentType" className={styles.label}>
                 Employment Type
@@ -179,14 +166,12 @@ export default function Task() {
                 Company Name
               </label>
               <p className={styles.fnin}>{companyName}</p>
-
             </div>
             <div className={styles.formGroup}>
               <label htmlFor="companyAddress" className={styles.label}>
                 Company Address
               </label>
-                            <p className={styles.fnin}>{companyAddress}</p>
-
+              <p className={styles.fnin}>{companyAddress}</p>
             </div>
             <div className={styles.formGroup}>
               <label htmlFor="companyWebsite" className={styles.label}>
@@ -194,20 +179,12 @@ export default function Task() {
               </label>
               <p className={styles.fnin}>{companyWebsite}</p>
             </div>
-                 {/* Apply button */}
-      <div className={styles.applyButton}>
-        {userId && userId === '4' ? (
-          <p>Already Applied</p>
-        ) : (
-          <button onClick={handleApplyClick}>Apply</button>
-        )}
-      </div>
-
-            {/* Submit button inside the company form */}
-            <div className={styles.subton}>
-              {/* <button type="submit" className={styles.submit}>
-                VIEW
-              </button> */}
+            <div className={styles.applyButton}>
+              {appliedAt && appliedAt === userData.id ? (
+                <p>Already Applied</p>
+              ) : (
+                <button onClick={handleApplyClick}>Apply</button>
+              )}
             </div>
           </form>
         </div>

@@ -28,7 +28,7 @@ export default function Task() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/jobs/6?populate=whoApplied`, {
+        const response = await axios.get(`${apiUrl}/jobs/7?populate=whoApplied`, {
           headers: {
             Authorization: `Bearer ${jwt}`,
             'Content-Type': 'application/json',

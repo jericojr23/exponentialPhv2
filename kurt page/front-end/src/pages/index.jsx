@@ -17,7 +17,6 @@ function Index() {
       <Everything />
       <ExponentialPhBusiness />
       <JoinExponentialPh />
-      <Footer/>
     </div>
   );
 }
