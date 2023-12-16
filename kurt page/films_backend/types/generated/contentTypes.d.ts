@@ -660,6 +660,19 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'plugin::users-permissions.role'
     >;
     isApplicant: Attribute.Boolean;
+    firstName: Attribute.String;
+    lastName: Attribute.String;
+    mobileNumber: Attribute.BigInteger;
+    birthDate: Attribute.Date;
+    permanentAddress: Attribute.String;
+    aboutYou: Attribute.Text;
+    experience1: Attribute.String;
+    slug: Attribute.UID<'plugin::users-permissions.user', 'username'>;
+    whoApplied: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'manyToMany',
+      'api::job.job'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -763,14 +776,19 @@ export interface ApiJobJob extends Schema.CollectionType {
     experienceLevel: Attribute.Enumeration<['Junior', 'Senior', 'Expert']>;
     salary: Attribute.BigInteger;
     jobDescription: Attribute.RichText;
-    whoApplied: Attribute.Relation<
+    companyName: Attribute.String;
+    companyAddress: Attribute.String;
+    companyWebsite: Attribute.String;
+    appliedAt: Attribute.Relation<
+      'api::job.job',
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
+    whoApplied1: Attribute.Relation<
       'api::job.job',
       'manyToMany',
       'api::profile.profile'
     >;
-    companyName: Attribute.String;
-    companyAddress: Attribute.String;
-    companyWebsite: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

@@ -52,32 +52,6 @@ export default function Login() {
         Cookies.set('UserID', data.user.id);
         Cookies.set('isApplicant', data.user.isApplicant.toString());
   
-        // Fetch appliedAt data using dynamic URL
-        const userId = data.user.id;
-        const profileResponse = await axios.get(
-          `${apiUrl}/profiles/${userId}?populate=appliedAt`,
-          {
-            headers: {
-              Authorization: `Bearer ${data.jwt}`,
-              'Content-Type': 'application/json',
-            },
-          }
-        );
-  
-        console.log('Profile Response:', profileResponse);
-  
-        // Access the 'appliedAt' data and store its ID in cookies
-        const appliedAtData = profileResponse.data.data.attributes.appliedAt.data;
-        console.log('AppliedAt Data:', appliedAtData);
-
-        if (appliedAtData && appliedAtData.length > 0) {
-          const appliedAtId = appliedAtData[0].id;
-          Cookies.set('appliedAt', appliedAtId);
-          console.log('AppliedAt ID stored in cookies:', appliedAtId);
-        } else {
-          console.error('AppliedAt data not found or empty:', appliedAtData);
-        }
-          
         // Redirect to the landing page
         router.push('/');
       } else {

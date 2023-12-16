@@ -67,6 +67,37 @@
     },
     "isApplicant": {
       "type": "boolean"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "mobileNumber": {
+      "type": "biginteger"
+    },
+    "birthDate": {
+      "type": "date"
+    },
+    "permanentAddress": {
+      "type": "string"
+    },
+    "aboutYou": {
+      "type": "text"
+    },
+    "experience1": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "username"
+    },
+    "whoApplied": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::job.job",
+      "inversedBy": "appliedAt"
     }
   }
 }

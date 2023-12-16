@@ -38,12 +38,6 @@
     "jobDescription": {
       "type": "richtext"
     },
-    "whoApplied": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::profile.profile",
-      "mappedBy": "appliedAt"
-    },
     "companyName": {
       "type": "string"
     },
@@ -52,6 +46,18 @@
     },
     "companyWebsite": {
       "type": "string"
+    },
+    "appliedAt": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "whoApplied"
+    },
+    "whoApplied1": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::profile.profile",
+      "mappedBy": "appliedAt"
     }
   }
 }
